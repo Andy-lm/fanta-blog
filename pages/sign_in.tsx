@@ -17,10 +17,15 @@ const SignUp = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      Axios.post("/api/v1/users", formData).then(
+      // 发送请求前将上一次错误置空
+      setErrors({
+        username: [],
+        password: [],
+        passwordConfirmation: [],
+      });
+      Axios.post("/api/v1/sessions", formData).then(
         (data) => {
-          alert("注册成功！");
-          window.location.href = "/sign_in";
+          alert("登录成功！");
         },
         (error) => {
           const response: AxiosResponse = error.response;
@@ -37,7 +42,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <h1>注册</h1>
+      <h1>登录</h1>
       <form onSubmit={onSubmit} autoComplete={"on"}>
         <div>
           <label>
@@ -70,25 +75,7 @@ const SignUp = () => {
           )}
         </div>
         <div>
-          <label>
-            确认密码
-            <input
-              type="password"
-              value={formData.passwordConfirmation}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  passwordConfirmation: e.target.value,
-                });
-              }}
-            />
-          </label>
-          {errors.passwordConfirmation?.length > 0 && (
-            <div>{errors.passwordConfirmation.join(",")}</div>
-          )}
-        </div>
-        <div>
-          <button type="submit">注册</button>
+          <button type="submit">登录</button>
         </div>
       </form>
     </div>

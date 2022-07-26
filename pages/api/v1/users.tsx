@@ -22,13 +22,7 @@ const Users: NextApiHandler = async (request, response) => {
     response.statusCode = 200;
     // 这里出于保密考虑用户的密码、passwordDigest不会返回给前端，同样可以使用lodash的_omit方法实现
     response.write(
-      JSON.stringify(user, [
-        "createdAt",
-        "id",
-        "updatedAt",
-        "username",
-        "errors",
-      ])
+      JSON.stringify(user)
     );
   }
   response.end();

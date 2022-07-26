@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import md5 from "md5";
+import { omit } from "lodash";
 
 @Entity("users")
 export class User {
@@ -84,5 +85,13 @@ export class User {
   @BeforeInsert()
   generatePasswordDigest() {
     this.passwordDigest = md5(this.password);
+  }
+  toJSON() {
+    return omit(this, [
+      "passwordConfirmation",
+      "password",
+      "passwordDigest",
+      "errors",
+    ]);
   }
 }
