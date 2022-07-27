@@ -2,6 +2,8 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -33,7 +35,7 @@ var _getDatabaseConnection = require("lib/getDatabaseConnection");
 
 var _md = _interopRequireDefault(require("md5"));
 
-var _lodash = require("lodash");
+var _ = _interopRequireWildcard(require("lodash"));
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 
@@ -156,7 +158,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
   }, {
     key: "toJSON",
     value: function toJSON() {
-      return (0, _lodash.omit)(this, ["passwordConfirmation", "password", "passwordDigest", "errors"]);
+      return _.omit(this, ["passwordConfirmation", "password", "passwordDigest", "errors"]);
     }
   }]);
   return User;

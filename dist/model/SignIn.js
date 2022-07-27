@@ -49,19 +49,23 @@ var SignIn = /*#__PURE__*/function () {
                   this.errors.username.push("用户名为空");
                 }
 
-                _context.next = 3;
+                if (this.password.trim() === "") {
+                  this.errors.password.push("密码不能为空");
+                }
+
+                _context.next = 4;
                 return (0, _getDatabaseConnection.getDatabaseConnection)();
 
-              case 3:
+              case 4:
                 connection = _context.sent;
-                _context.next = 6;
+                _context.next = 7;
                 return connection.manager.findOne(_User.User, {
                   where: {
                     username: this.username
                   }
                 });
 
-              case 6:
+              case 7:
                 user = _context.sent;
                 console.log(user, this.username, "==user"); // 在找到user之后将其放在SignIn实体上
 
@@ -75,7 +79,7 @@ var SignIn = /*#__PURE__*/function () {
                   this.errors.username.push("用户名不存在！");
                 }
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }

@@ -10,11 +10,14 @@ export class SignIn {
     password: [] as string[],
     passwordConfirmation: [] as string[],
   };
-  user:User
+  user: User;
 
   async validate() {
     if (this.username.trim() === "") {
       this.errors.username.push("用户名为空");
+    }
+    if (this.password.trim() === "") {
+      this.errors.password.push("密码不能为空");
     }
     const connection = await getDatabaseConnection();
     const user = await connection.manager.findOne(User, {
@@ -22,8 +25,8 @@ export class SignIn {
         username: this.username,
       },
     });
-    console.log(user,this.username,"==user");
-    
+    console.log(user, this.username, "==user");
+
     // 在找到user之后将其放在SignIn实体上
     this.user = user;
     if (user) {
