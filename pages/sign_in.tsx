@@ -10,6 +10,7 @@ type Props = {
 
 const SignIn: NextPage<Props> = (props) => {
   const { user } = props;
+
   const [currentUser, setCurrentUser] = useState(user);
   const [formData, setFormData] = useState({
     username: "",
@@ -24,7 +25,6 @@ const SignIn: NextPage<Props> = (props) => {
   });
 
   useEffect(() => {
-    console.log(user, "==user");
     setCurrentUser(user);
   }, [user]);
 
@@ -40,6 +40,7 @@ const SignIn: NextPage<Props> = (props) => {
       Axios.post("/api/v1/sessions", formData).then(
         (data) => {
           alert("登录成功！");
+          window.location.reload();
         },
         (error) => {
           const response: AxiosResponse = error.response;
@@ -56,7 +57,11 @@ const SignIn: NextPage<Props> = (props) => {
 
   return (
     <div>
-      {currentUser && <div>当前登录用户为 {currentUser?.username}</div>}
+      {currentUser ? (
+        <div>当前登录用户为 {currentUser?.username}</div>
+      ) : (
+        <div>未登录</div>
+      )}
       <h1>登录</h1>
       <form onSubmit={onSubmit} autoComplete={"on"}>
         <div>
@@ -104,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = withSession(
   // @ts-ignore
   async (context) => {
     // @ts-ignore
-    const user = context.req.session.get("currentUser");
+    const user = context.req.session.get("currentUser") || "";
     return {
       props: {
         user: JSON.parse(JSON.stringify(user)),
