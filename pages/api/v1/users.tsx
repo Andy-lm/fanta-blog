@@ -1,9 +1,8 @@
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
-import md5 from "md5";
-import { NextApiHandler } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "src/entity/User";
 
-const Users: NextApiHandler = async (request, response) => {
+const Users = async (request: NextApiRequest, response: NextApiResponse) => {
   const body = request.body;
   const { username, password, passwordConfirmation } = body;
   // 连接数据库
@@ -21,9 +20,7 @@ const Users: NextApiHandler = async (request, response) => {
     await connection.manager.save(user);
     response.statusCode = 200;
     // 这里出于保密考虑用户的密码、passwordDigest不会返回给前端，同样可以使用lodash的_omit方法实现
-    response.write(
-      JSON.stringify(user)
-    );
+    response.write(JSON.stringify(user));
   }
   response.end();
 };

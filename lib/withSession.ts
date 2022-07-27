@@ -1,10 +1,9 @@
 import { withIronSession } from "next-iron-session";
-import { NextApiHandler } from "next";
+import { GetServerSideProps, NextApiHandler } from "next";
 
-export function withSession(handler: NextApiHandler) {
+export function withSession(handler: NextApiHandler | GetServerSideProps) {
   return withIronSession(handler, {
-    // password: process.env.SECRET_COOKIE_PASSWORD,
-    password: "35e25519-d518-4468-8d9e-47d87ff0f812",
+    password: process.env.SECRET_COOKIE_PASSWORD,
     cookieName: "blog",
     cookieOptions: { secure: false },
   });

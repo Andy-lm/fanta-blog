@@ -1,8 +1,16 @@
 import { withSession } from "lib/withSession";
-import { NextApiHandler } from "next";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { Session } from "next-iron-session";
 import { SignIn } from "src/model/SignIn";
 
-const Sessions: NextApiHandler = async (request, response) => {
+interface NextIronSessionRequest extends NextApiRequest {
+  session:Session
+}
+
+const Sessions: NextApiHandler = async (
+  request: NextIronSessionRequest,
+  response: NextApiResponse
+) => {
   const { username, password } = request.body;
   response.setHeader("Content-Type", "application/json;charset=utf-8");
   const signIn = new SignIn();
@@ -14,8 +22,8 @@ const Sessions: NextApiHandler = async (request, response) => {
     response.write(JSON.stringify(signIn.errors));
     response.end();
   } else {
-    request.session.set('currentUser', signIn.user);
-    await request.session.save()
+    request.session.set("currentUser", signIn.user);
+    await request.session.save();
     response.statusCode = 200;
     response.write(JSON.stringify(signIn.user));
     response.end();

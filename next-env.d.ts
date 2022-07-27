@@ -1,6 +1,5 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
-import * as next from "next";
 
 declare module "*.png" {
   const value: string;
@@ -14,10 +13,3 @@ type Post = {
   content: string;
   htmlContent: string;
 };
-
-declare module "next" {
-  import { Session } from "next-iron-session";
-  interface NextApiHandler {
-    session: Session;
-  }
-}
