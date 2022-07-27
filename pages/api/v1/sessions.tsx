@@ -1,3 +1,4 @@
+import { withSession } from "lib/withSession";
 import { NextApiHandler } from "next";
 import { SignIn } from "src/model/SignIn";
 
@@ -13,10 +14,12 @@ const Sessions: NextApiHandler = async (request, response) => {
     response.write(JSON.stringify(signIn.errors));
     response.end();
   } else {
+    request.session.set('currentUser', signIn.user);
+    await request.session.save()
     response.statusCode = 200;
     response.write(JSON.stringify(signIn.user));
     response.end();
   }
 };
 
-export default Sessions;
+export default withSession(Sessions);

@@ -1,7 +1,16 @@
 import Axios, { AxiosResponse } from "axios";
-import { useCallback, useState } from "react";
+import { withSession } from "lib/withSession";
+import { NextPage } from "next";
+import { useCallback, useEffect, useState } from "react";
+import { User } from "src/entity/User";
 
-const SignUp = () => {
+type Props = {
+  user: User | null;
+};
+
+const SignIn: NextPage<Props> = (props) => {
+  const { user } = props;
+  const [currentUser, setCurrentUser] = useState(user);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,6 +22,11 @@ const SignUp = () => {
     password: [],
     passwordConfirmation: [],
   });
+
+  useEffect(() => {
+    console.log(user, "==user");
+    setCurrentUser(user);
+  }, [user]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -42,6 +56,7 @@ const SignUp = () => {
 
   return (
     <div>
+      {currentUser && <div>当前登录用户为 {currentUser?.username}</div>}
       <h1>登录</h1>
       <form onSubmit={onSubmit} autoComplete={"on"}>
         <div>
@@ -82,4 +97,18 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
+
+// @ts-ignore
+export const getServerSideProps: GetServerSideProps = withSession(
+  // @ts-ignore
+  async (context) => {
+    // @ts-ignore
+    const user = context.req.session.get("currentUser");
+    return {
+      props: {
+        user: JSON.parse(JSON.stringify(user)),
+      },
+    };
+  }
+);
