@@ -15,11 +15,15 @@ const Form: React.FC<Props> = (props) => {
           <div key={index}>
             <label>
               {field.label}
-              <input
-                type={field.inputType}
-                value={field.inputValue}
-                onChange={field.onChange}
-              />
+              {field.type === "textarea" ? (
+                <textarea onChange={field.onChange} value={field.value} />
+              ) : (
+                <input
+                  type={field.type}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
             </label>
             {field.errors?.length > 0 && <div>{field.errors.join(",")}</div>}
           </div>

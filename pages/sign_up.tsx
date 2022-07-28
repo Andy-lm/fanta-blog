@@ -40,8 +40,8 @@ const SignUp = () => {
     return [
       {
         label: "用户名",
-        inputType: "text",
-        inputValue: formData.username,
+        type: "text",
+        value: formData.username,
         onChange: (e: ChangeEventHandler) => {
           onChange("username", e);
         },
@@ -49,8 +49,8 @@ const SignUp = () => {
       },
       {
         label: "密码",
-        inputType: "password",
-        inputValue: formData.password,
+        type: "password",
+        value: formData.password,
         onChange: (e: ChangeEventHandler) => {
           onChange("password", e);
         },
@@ -58,8 +58,8 @@ const SignUp = () => {
       },
       {
         label: "确认密码",
-        inputType: "password",
-        inputValue: formData.passwordConfirmation,
+        type: "password",
+        value: formData.passwordConfirmation,
         onChange: (e: ChangeEventHandler) => {
           onChange("passwordConfirmation", e);
         },

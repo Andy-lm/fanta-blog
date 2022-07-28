@@ -16,8 +16,8 @@ type Post = {
 
 type FormFields = {
   label: string;
-  inputType: "text" | "password";
-  inputValue: string | number;
+  type: "text" | "password" | "textarea";
+  value: string | number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   errors: string[];
 };

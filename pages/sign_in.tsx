@@ -72,8 +72,8 @@ const SignIn: NextPage<Props> = (props) => {
     return [
       {
         label: "用户名",
-        inputType: "text",
-        inputValue: formData.username,
+        type: "text",
+        value: formData.username,
         onChange: (e: ChangeEventHandler) => {
           onChange("username", e);
         },
@@ -81,8 +81,8 @@ const SignIn: NextPage<Props> = (props) => {
       },
       {
         label: "密码",
-        inputType: "password",
-        inputValue: formData.password,
+        type: "password",
+        value: formData.password,
         onChange: (e: ChangeEventHandler) => {
           onChange("password", e);
         },
