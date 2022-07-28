@@ -1,5 +1,6 @@
 import Axios, { AxiosResponse } from "axios";
-import { useCallback, useState } from "react";
+import { ChangeEventHandler, useCallback, useMemo, useState } from "react";
+import Form from "components/Form";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -35,62 +36,57 @@ const SignUp = () => {
     [formData]
   );
 
+  const formFields: FormFields[] = useMemo(() => {
+    return [
+      {
+        label: "用户名",
+        inputType: "text",
+        inputValue: formData.username,
+        onChange: (e: ChangeEventHandler) => {
+          onChange("username", e);
+        },
+        errors: errors.username,
+      },
+      {
+        label: "密码",
+        inputType: "password",
+        inputValue: formData.password,
+        onChange: (e: ChangeEventHandler) => {
+          onChange("password", e);
+        },
+        errors: errors.password,
+      },
+      {
+        label: "确认密码",
+        inputType: "password",
+        inputValue: formData.passwordConfirmation,
+        onChange: (e: ChangeEventHandler) => {
+          onChange("passwordConfirmation", e);
+        },
+        errors: errors.passwordConfirmation,
+      },
+    ];
+  }, [formData, errors]);
+
+  const onChange = useCallback(
+    (type, e) => {
+      setFormData({ ...formData, [type]: e.target.value });
+    },
+    [formData]
+  );
+
   return (
     <div>
       <h1>注册</h1>
-      <form onSubmit={onSubmit} autoComplete={"on"}>
-        <div>
-          <label>
-            用户名
-            <input
-              type="text"
-              value={formData.username}
-              onChange={(e) => {
-                setFormData({ ...formData, username: e.target.value });
-              }}
-            />
-          </label>
-          {errors.username?.length > 0 && (
-            <div>{errors.username.join(",")}</div>
-          )}
-        </div>
-        <div>
-          <label>
-            密码
-            <input
-              type="password"
-              value={formData.password}
-              onChange={(e) => {
-                setFormData({ ...formData, password: e.target.value });
-              }}
-            />
-          </label>
-          {errors.password?.length > 0 && (
-            <div>{errors.password.join(",")}</div>
-          )}
-        </div>
-        <div>
-          <label>
-            确认密码
-            <input
-              type="password"
-              value={formData.passwordConfirmation}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  passwordConfirmation: e.target.value,
-                });
-              }}
-            />
-          </label>
-          {errors.passwordConfirmation?.length > 0 && (
-            <div>{errors.passwordConfirmation.join(",")}</div>
-          )}
-        </div>
-        <div>
-          <button type="submit">注册</button>
-        </div>
-      </form>
+      <Form
+        fields={formFields}
+        onSubmit={onSubmit}
+        Buttons={
+          <div>
+            <button type="submit">注册</button>
+          </div>
+        }
+      ></Form>
     </div>
   );
 };

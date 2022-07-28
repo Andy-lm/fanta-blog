@@ -2,7 +2,13 @@ import Axios, { AxiosResponse } from "axios";
 import Form from "components/Form";
 import { withSession } from "lib/withSession";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import { useCallback, useEffect, useState } from "react";
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { User } from "src/entity/User";
 
 type Props = {
@@ -29,6 +35,9 @@ const SignIn: NextPage<Props> = (props) => {
     setCurrentUser(user);
   }, [user]);
 
+  /**
+   * 处理数据提交
+   */
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -56,6 +65,35 @@ const SignIn: NextPage<Props> = (props) => {
     [formData]
   );
 
+  /**
+   * Form组件的fields
+   */
+  const formFields: FormFields[] = useMemo(() => {
+    return [
+      {
+        label: "用户名",
+        inputType: "text",
+        inputValue: formData.username,
+        onChange: (e: ChangeEventHandler) => {
+          onChange("username", e);
+        },
+        errors: errors.username,
+      },
+      {
+        label: "密码",
+        inputType: "password",
+        inputValue: formData.password,
+        onChange: (e: ChangeEventHandler) => {
+          onChange("password", e);
+        },
+        errors: errors.password,
+      },
+    ];
+  }, [formData, errors]);
+
+  /**
+   * 处理表单数据变动
+   */
   const onChange = useCallback(
     (type, e) => {
       setFormData({ ...formData, [type]: e.target.value });
@@ -72,26 +110,7 @@ const SignIn: NextPage<Props> = (props) => {
       )}
       <h1>登录</h1>
       <Form
-        fields={[
-          {
-            label: "用户名",
-            inputType: "text",
-            inputValue: formData.username,
-            onChange: (e) => {
-              onChange("username", e);
-            },
-            errors: errors.username,
-          },
-          {
-            label: "密码",
-            inputType: "password",
-            inputValue: formData.password,
-            onChange: (e) => {
-              onChange("password", e);
-            },
-            errors: errors.password,
-          },
-        ]}
+        fields={formFields}
         onSubmit={onSubmit}
         Buttons={
           <div>

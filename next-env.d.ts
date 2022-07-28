@@ -13,3 +13,11 @@ type Post = {
   content: string;
   htmlContent: string;
 };
+
+type FormFields = {
+  label: string;
+  inputType: "text" | "password";
+  inputValue: string | number;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  errors: string[];
+};

@@ -1,13 +1,7 @@
-import { ChangeEventHandler, FormEventHandler, ReactChild } from "react";
+import { FormEventHandler, ReactChild } from "react";
 
 type Props = {
-  fields: {
-    label: string;
-    inputType: "text" | "password";
-    inputValue: string | number;
-    onChange: ChangeEventHandler<HTMLInputElement>;
-    errors: string[];
-  }[];
+  fields: FormFields[];
   onSubmit: FormEventHandler;
   Buttons: ReactChild;
 };
