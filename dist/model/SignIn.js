@@ -30,8 +30,7 @@ var SignIn = /*#__PURE__*/function () {
     (0, _defineProperty2["default"])(this, "password", void 0);
     (0, _defineProperty2["default"])(this, "errors", {
       username: [],
-      password: [],
-      passwordConfirmation: []
+      password: []
     });
     (0, _defineProperty2["default"])(this, "user", void 0);
   }

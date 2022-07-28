@@ -8,7 +8,6 @@ export class SignIn {
   errors = {
     username: [] as string[],
     password: [] as string[],
-    passwordConfirmation: [] as string[],
   };
   user: User;
 
