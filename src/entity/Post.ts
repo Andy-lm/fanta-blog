@@ -18,8 +18,8 @@ export class Post {
   title: string;
   @Column("text")
   content: string;
-  @Column("varchar")
-  authorId: string;
+  @Column("int")
+  authorId: number;
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()

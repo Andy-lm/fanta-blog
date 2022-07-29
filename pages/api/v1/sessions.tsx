@@ -1,11 +1,7 @@
 import { withSession } from "lib/withSession";
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { Session } from "next-iron-session";
+import { NextApiHandler, NextApiResponse } from "next";
+import { NextIronSessionRequest } from "next-env";
 import { SignIn } from "src/model/SignIn";
-
-interface NextIronSessionRequest extends NextApiRequest {
-  session:Session
-}
 
 const Sessions: NextApiHandler = async (
   request: NextIronSessionRequest,

@@ -1,5 +1,7 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+import { Session } from "next-iron-session";
+import { NextApiRequest } from "next";
 
 declare module "*.png" {
   const value: string;
@@ -21,3 +23,8 @@ type FormFields = {
   onChange: ChangeEventHandler<HTMLInputElement>;
   errors: string[];
 };
+
+
+interface NextIronSessionRequest extends NextApiRequest {
+  session:Session
+}
