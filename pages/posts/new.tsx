@@ -4,7 +4,7 @@ import useForm from "hooks/useForm";
 import { NextPage } from "next";
 import { ChangeEventHandler, useCallback, useMemo, useState } from "react";
 
-const NewPosts: NextPage = () => {
+const New: NextPage = () => {
   const initFormData = {
     title: "",
     content: "",
@@ -141,4 +141,4 @@ const NewPosts: NextPage = () => {
   );
 };
 
-export default NewPosts;
+export default New;
