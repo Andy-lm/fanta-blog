@@ -66,8 +66,7 @@ var SignIn = /*#__PURE__*/function () {
 
               case 7:
                 user = _context.sent;
-                console.log(user, this.username, "==user"); // 在找到user之后将其放在SignIn实体上
-
+                // 在找到user之后将其放在SignIn实体上
                 this.user = user;
 
                 if (user) {
@@ -78,7 +77,7 @@ var SignIn = /*#__PURE__*/function () {
                   this.errors.username.push("用户名不存在！");
                 }
 
-              case 11:
+              case 10:
               case "end":
                 return _context.stop();
             }

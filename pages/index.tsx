@@ -17,7 +17,6 @@ type Props = {
 const index: NextPage<Props> = (props) => {
   const { browser, posts } = props;
   const [width, setWidth] = useState(0);
-  console.log(posts, "===posts");
   useEffect(() => {
     setWidth(document.documentElement.clientWidth);
   }, []);

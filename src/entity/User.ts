@@ -63,7 +63,6 @@ export class User {
     if (found) {
       this.errors.username.push("用户名重复，请再试");
     }
-    console.log(this.username, this.password, "====");
 
     if (this.password.length < 6) {
       this.errors.password.push("密码太短");

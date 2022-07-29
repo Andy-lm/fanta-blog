@@ -24,8 +24,6 @@ export class SignIn {
         username: this.username,
       },
     });
-    console.log(user, this.username, "==user");
-
     // 在找到user之后将其放在SignIn实体上
     this.user = user;
     if (user) {

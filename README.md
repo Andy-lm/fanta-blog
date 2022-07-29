@@ -42,8 +42,13 @@ CREATE DATABASE database_name ENCODING 'UTF8' LC_COLLATE 'en_US.utf8' LC_CTYPE '
 
 6. 创建数据表
 ```bash
+npm run m:run
 npm run dev
 
-npm run m:run
+```
+
+7. 启动项目
+```bash
+npm run dev
 ```
 

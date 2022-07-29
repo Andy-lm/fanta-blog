@@ -110,8 +110,6 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
                   this.errors.username.push("用户名重复，请再试");
                 }
 
-                console.log(this.username, this.password, "====");
-
                 if (this.password.length < 6) {
                   this.errors.password.push("密码太短");
                 }
@@ -128,7 +126,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
                   this.errors.passwordConfirmation.push("密码不匹配");
                 }
 
-              case 15:
+              case 14:
               case "end":
                 return _context.stop();
             }
