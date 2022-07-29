@@ -54,7 +54,7 @@ function useForm<T>(options: useFormOptions<T>) {
               {field.type === "textarea" ? (
                 <textarea
                   onChange={(e) => {
-                    onChange("content", e);
+                    onChange(field.key, e);
                   }}
                   value={formData[field.key].toString()}
                 />
@@ -63,7 +63,7 @@ function useForm<T>(options: useFormOptions<T>) {
                   type={field.type}
                   value={formData[field.key].toString()}
                   onChange={(e) => {
-                    onChange("title", e);
+                    onChange(field.key, e);
                   }}
                 />
               )}
