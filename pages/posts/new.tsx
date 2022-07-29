@@ -8,29 +8,13 @@ const New: NextPage = () => {
     content: "",
   };
 
-  const onSubmit = (formData: typeof initFormData) => {
-    Axios.post("/api/v1/posts", formData).then(
-      (response) => {
-        console.log(response.data, "-------");
-      },
-      (error) => {
-        const response: AxiosResponse = error.response;
-        if (response.status === 422) {
-          console.log("response.data");
-          console.log(response.data);
-          setErrors({ ...response.data });
-        }
-      }
-    );
-  };
-
   const buttons = (
     <div>
       <button type="submit">提交</button>
     </div>
   );
 
-  const { form, setErrors } = useForm({
+  const { form } = useForm({
     initFormData,
     fields: [
       {
@@ -44,7 +28,13 @@ const New: NextPage = () => {
         key: "content",
       },
     ],
-    onSubmit,
+    submit: {
+      request: (formData) => Axios.post("/api/v1/posts", formData),
+      message: "创建成功",
+      successCallback: (response) => {
+        console.log(response.data, "====");
+      },
+    },
     buttons,
   });
 

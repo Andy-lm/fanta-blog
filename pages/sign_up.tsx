@@ -1,4 +1,4 @@
-import Axios, { AxiosResponse } from "axios";
+import Axios from "axios";
 import useForm from "hooks/useForm";
 
 const SignUp = () => {
@@ -8,24 +8,7 @@ const SignUp = () => {
     passwordConfirmation: "",
   };
 
-  const onSubmit = (formData: typeof initFormData) => {
-    Axios.post("/api/v1/users", formData).then(
-      (data) => {
-        alert("注册成功！");
-        window.location.href = "/sign_in";
-      },
-      (error) => {
-        const response: AxiosResponse = error.response;
-        if (response.status === 422) {
-          console.log("response.data");
-          console.log(response.data);
-          setErrors({ ...response.data });
-        }
-      }
-    );
-  };
-
-  const { form, setErrors } = useForm({
+  const { form } = useForm({
     initFormData,
     fields: [
       { label: "用户名", type: "text", key: "username" },
@@ -37,7 +20,13 @@ const SignUp = () => {
         <button>注册</button>
       </div>
     ),
-    onSubmit,
+    submit: {
+      request: (formData) => Axios.post("/api/v1/users", formData),
+      message: "注册成功！",
+      successCallback: (response) => {
+        window.location.href = "/sign_in";
+      },
+    },
   });
 
   return (

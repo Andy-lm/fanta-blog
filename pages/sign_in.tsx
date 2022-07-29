@@ -1,4 +1,4 @@
-import Axios, { AxiosResponse } from "axios";
+import Axios from "axios";
 import useForm from "hooks/useForm";
 import { withSession } from "lib/withSession";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
@@ -13,44 +13,11 @@ const SignIn: NextPage<Props> = (props) => {
   const { user } = props;
   const [currentUser, setCurrentUser] = useState(user);
 
-  const initFormData = {
-    username: "",
-    password: "",
-  };
-
-  const buttons = (
-    <div>
-      <button type="submit">登录</button>
-    </div>
-  );
-
-  /**
-   * 处理数据提交
-   */
-  const onSubmit = (formData: typeof initFormData) => {
-    // 发送请求前将上一次错误置空
-    setErrors({
-      username: [],
-      password: [],
-    });
-    Axios.post("/api/v1/sessions", formData).then(
-      (data) => {
-        alert("登录成功！");
-        window.location.reload();
-      },
-      (error) => {
-        const response: AxiosResponse = error.response;
-        if (response.status === 422) {
-          console.log("response.data");
-          console.log(response.data);
-          setErrors({ ...response.data });
-        }
-      }
-    );
-  };
-
-  const { form, setErrors } = useForm({
-    initFormData,
+  const { form } = useForm({
+    initFormData: {
+      username: "",
+      password: "",
+    },
     fields: [
       {
         label: "用户名",
@@ -63,8 +30,18 @@ const SignIn: NextPage<Props> = (props) => {
         key: "password",
       },
     ],
-    onSubmit,
-    buttons,
+    submit: {
+      request: (formData) => Axios.post("/api/v1/sessions", formData),
+      message: "登录成功！",
+      successCallback: (response) => {
+        window.location.reload();
+      },
+    },
+    buttons: (
+      <div>
+        <button type="submit">登录</button>
+      </div>
+    ),
   });
 
   useEffect(() => {

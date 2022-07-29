@@ -1,9 +1,14 @@
+import { AxiosResponse } from "axios";
 import { FormEventHandler, ReactChild, useCallback, useState } from "react";
 
 type useFormOptions<T> = {
   initFormData: T;
   fields: Field<T>[];
-  onSubmit: (formData: T) => void;
+  submit: {
+    request: (formData: T) => Promise<AxiosResponse>;
+    message: string;
+    successCallback?: (response: AxiosResponse) => void;
+  };
   buttons: ReactChild;
 };
 
@@ -15,7 +20,7 @@ type Field<T> = {
 
 // 这里用泛型的目的是每个组件接收的initFormData的类型都是不一样的
 function useForm<T>(options: useFormOptions<T>) {
-  const { initFormData, fields, onSubmit, buttons } = options;
+  const { initFormData, fields, buttons, submit } = options;
   const [formData, setFormData] = useState({
     ...initFormData,
   });
@@ -39,10 +44,35 @@ function useForm<T>(options: useFormOptions<T>) {
     [formData]
   );
 
-  const _onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-  };
+  const _onSubmit: FormEventHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+      setErrors(() => {
+        const obj: { [k in keyof T]?: string[] } = {};
+        for (let key in initFormData) {
+          if (initFormData.hasOwnProperty(key)) {
+            obj[key] = [];
+          }
+        }
+        return obj;
+      });
+      submit.request(formData).then(
+        (response) => {
+          alert(submit.message);
+          submit.successCallback(response);
+        },
+        (error) => {
+          const response: AxiosResponse = error.response;
+          if (response.status === 422) {
+            console.log("response.data");
+            console.log(response.data);
+            setErrors({ ...response.data });
+          }
+        }
+      );
+    },
+    [formData]
+  );
 
   const form = (
     <form onSubmit={_onSubmit}>
