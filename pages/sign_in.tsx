@@ -4,6 +4,7 @@ import { withSession } from "lib/withSession";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { User } from "src/entity/User";
+import queryString from "query-string";
 
 type Props = {
   user: User | null;
@@ -34,7 +35,11 @@ const SignIn: NextPage<Props> = (props) => {
       request: (formData) => Axios.post("/api/v1/sessions", formData),
       message: "登录成功！",
       successCallback: (response) => {
-        window.location.reload();
+        const search = queryString.parse(window.location.search);
+        const returnTo = search["return_to"].toString();
+        if (returnTo) {
+          window.location.href = returnTo;
+        }
       },
     },
     buttons: (

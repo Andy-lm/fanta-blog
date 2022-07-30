@@ -15,6 +15,13 @@ const Posts: NextApiHandler = async (
     post.title = title;
     post.content = content;
     const user = request.session.get("currentUser");
+    if(!user) {
+      // 401没登录
+      // 403没权限
+      response.statusCode = 401;
+      response.end()
+      return
+    }
     post.authorId = user.id;
     const connection = await getDatabaseConnection();
     await connection.manager.save(post);

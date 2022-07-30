@@ -67,6 +67,11 @@ function useForm<T>(options: useFormOptions<T>) {
             console.log("response.data");
             console.log(response.data);
             setErrors({ ...response.data });
+          } else if (response.status === 401) {
+            window.alert("请先登录！");
+            window.location.href = `/sign_in?return_to=${encodeURIComponent(
+              window.location.pathname
+            )}`;
           }
         }
       );
