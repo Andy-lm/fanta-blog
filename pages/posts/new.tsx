@@ -32,7 +32,7 @@ const New: NextPage = () => {
       request: (formData) => Axios.post("/api/v1/posts", formData),
       message: "创建成功",
       successCallback: (response) => {
-        console.log(response.data, "====");
+        window.location.href = "/posts";
       },
     },
     buttons,

@@ -1,35 +1,55 @@
-import { NextPage } from "next";
-import { getPosts } from "../../lib/posts";
+import { GetServerSideProps, NextPage } from "next";
+import { UAParser } from "ua-parser-js";
+import { useEffect, useState } from "react";
+import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import Link from "next/link";
-import { Post } from "next-env";
+import { Post } from "src/entity/Post";
 
 type Props = {
   posts: Post[];
+  browser: {
+    name: string;
+    version: string;
+    major: string;
+  };
 };
+
 const PostsIndex: NextPage<Props> = (props) => {
-  const { posts } = props;
-  console.log(posts);
+  const { browser, posts } = props;
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(document.documentElement.clientWidth);
+  }, []);
+
   return (
     <div>
+      <div>你的浏览器是 {browser.name}</div>
+      <div>你的浏览器窗口大小是 {width} 像素</div>
       <h1>文章列表</h1>
-      {posts.map((p) => (
-        <div key={p.id}>
-          <Link href={`/posts/${p.id}`}>
-            <a>{p.id}</a>
-          </Link>
-        </div>
-      ))}
+      {posts.map((post) => {
+        return (
+          <div key={post.id}>
+            <Link href={`posts/${post.id}`}>
+              <a>{post.title}</a>
+            </Link>
+          </div>
+        );
+      })}
     </div>
   );
 };
-
 export default PostsIndex;
 
-export const getStaticProps = async () => {
-  const posts = await getPosts();
+// getServerSideProps会在请求来的时候运行一次
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let connection = await getDatabaseConnection();
+  const p1 = await connection.manager.find(Post);
+  const ua = context.req.headers["user-agent"];
+  const result = new UAParser(ua).getResult();
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts)),
+      browser: result.browser,
+      posts: JSON.parse(JSON.stringify(p1)),
     },
   };
 };
