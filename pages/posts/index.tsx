@@ -9,10 +9,11 @@ type Props = {
   pageSize: number;
   curPage: number;
   total: number;
+  totalPage: number;
 };
 
 const PostsIndex: NextPage<Props> = (props) => {
-  const { posts, total, curPage } = props;
+  const { posts, total, curPage, totalPage } = props;
 
   return (
     <div>
@@ -32,14 +33,17 @@ const PostsIndex: NextPage<Props> = (props) => {
       <footer>
         <div>
           <span>
-            <Link href={`?curPage=${curPage - 1}`}>
-              <a>上一页</a>
-            </Link>
-            <span>第{curPage}页</span>
-            <Link href={`?curPage=${curPage + 1}`}>
-              <a>下一页</a>
-            </Link>
-            共{total}篇博客
+            共{total}篇文章，当前是第{curPage}/{totalPage}页
+            {curPage > 1 && (
+              <Link href={`?curPage=${curPage - 1}`}>
+                <a>上一页</a>
+              </Link>
+            )}
+            {curPage !== totalPage && (
+              <Link href={`?curPage=${curPage + 1}`}>
+                <a>下一页</a>
+              </Link>
+            )}
           </span>
         </div>
       </footer>
@@ -55,17 +59,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   curPage = curPage <= 0 ? 1 : curPage;
   const pageSize = 3;
   let connection = await getDatabaseConnection();
-  const p1 = await connection.manager.findAndCount(Post, {
-    skip: pageSize * curPage - 1,
+  const [posts, count] = await connection.manager.findAndCount(Post, {
+    skip: (curPage - 1) * pageSize,
     take: pageSize,
   });
 
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(p1[0])),
+      posts: JSON.parse(JSON.stringify(posts)),
       pageSize,
       curPage,
-      total: p1[1],
+      total: count,
+      totalPage: Math.ceil(count / pageSize),
     },
   };
 };
