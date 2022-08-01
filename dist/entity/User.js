@@ -64,6 +64,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
       password: [],
       passwordConfirmation: []
     });
+    (0, _defineProperty2["default"])(this, "\u68C0\u6D4B", void 0);
   }
 
   (0, _createClass2["default"])(User, [{
@@ -139,8 +140,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
       }
 
       return validate;
-    }() // 检测
-
+    }()
   }, {
     key: "hasErrors",
     value: function hasErrors() {

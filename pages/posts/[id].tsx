@@ -10,8 +10,8 @@ const postsShow: NextPage<Props> = (props) => {
   const { post } = props;
   return (
     <div>
-      <h1>{post.title}</h1>
-      <article dangerouslySetInnerHTML={{ __html: post.content }}></article>
+      <h1>{post?.title}</h1>
+      <article dangerouslySetInnerHTML={{ __html: post?.content }}></article>
     </div>
   );
 };

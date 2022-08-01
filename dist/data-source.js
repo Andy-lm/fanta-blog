@@ -15,7 +15,7 @@ var AppDataSource = new _typeorm.DataSource({
   host: "localhost",
   port: 5432,
   username: "blog",
-  password: "",
+  password: "123456",
   database: "blog_development",
   synchronize: false,
   // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除

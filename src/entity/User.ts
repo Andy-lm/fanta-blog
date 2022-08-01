@@ -77,7 +77,7 @@ export class User {
       this.errors.passwordConfirmation.push("密码不匹配");
     }
   }
-  // 检测
+  检测
   hasErrors() {
     return !!Object.values(this.errors).find((v) => v.length > 0);
   }
