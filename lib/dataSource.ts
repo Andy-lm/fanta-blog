@@ -18,7 +18,7 @@ export const AppDataSource = new DataSource({
   port: 5432,
   username: "blog",
   password: "123456",
-  database: "blog_development",
+  database: "blog_production",
   synchronize: false, // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除
   logging: false,
   //   entities: ["dist/entity/**/*.js"],

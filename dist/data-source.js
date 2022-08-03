@@ -12,11 +12,11 @@ var _typeorm = require("typeorm");
 // import { User } from "./entity/User"
 var AppDataSource = new _typeorm.DataSource({
   type: "postgres",
-  host: "localhost",
+  host: "172.17.0.2",
   port: 5432,
   username: "blog",
   password: "123456",
-  database: "blog_development",
+  database: "blog_production",
   synchronize: false,
   // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除
   logging: false,
