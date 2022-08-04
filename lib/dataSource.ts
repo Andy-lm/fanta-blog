@@ -6,7 +6,7 @@ import { Comment } from "src/entity/Comment";
 import { DataSource } from "typeorm";
 
 const NODE_ENV = process.env.NODE_ENV;
-console.log(NODE_ENV,"======NODE_ENV");
+console.log(NODE_ENV, "======NODE_ENV");
 // 注意：DataSource的参数也可以放在ormconfig.json文件里作为全局配置
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -18,7 +18,7 @@ export const AppDataSource = new DataSource({
   port: 5432,
   username: "blog",
   password: "123456",
-  database: "blog_production",
+  database: NODE_ENV === "development" ? "blog_development" : "blog_production",
   synchronize: false, // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除
   logging: false,
   //   entities: ["dist/entity/**/*.js"],

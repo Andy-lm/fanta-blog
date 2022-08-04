@@ -9,14 +9,15 @@ require("reflect-metadata");
 
 var _typeorm = require("typeorm");
 
-// import { User } from "./entity/User"
+var NODE_ENV = process.env.NODE_ENV;
+console.log(NODE_ENV, "======NODE_ENV");
 var AppDataSource = new _typeorm.DataSource({
   type: "postgres",
-  host: "172.17.0.2",
+  host: NODE_ENV === "development" ? "localhost" : "172.17.0.2",
   port: 5432,
   username: "blog",
   password: "123456",
-  database: "blog_production",
+  database: NODE_ENV === "development" ? "blog_development" : "blog_production",
   synchronize: false,
   // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除
   logging: false,

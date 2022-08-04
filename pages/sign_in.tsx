@@ -36,7 +36,7 @@ const SignIn: NextPage<Props> = (props) => {
       message: "登录成功！",
       successCallback: (response) => {
         const search = queryString.parse(window.location.search);
-        const returnTo = search["return_to"].toString();
+        const returnTo = search["return_to"]?.toString();
         if (returnTo) {
           window.location.href = returnTo;
         }
