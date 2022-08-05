@@ -1,0 +1,31 @@
+.nav_wrapper {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  height: 60px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #ccc;
+  .nav_left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    .logo_wrapper {
+      display: flex;
+      align-items: center;
+      .logo {
+        width: 40px;
+        height: 40px;
+      }
+      .title {
+        display: inline-block;
+        font-size: medium;
+        font-weight: 700;
+        margin-left: 5px;
+        color: #00b96b;
+      }
+    }
+  }
+  .nav_right {
+    flex: 1;
+  }
+}

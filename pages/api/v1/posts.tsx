@@ -2,7 +2,7 @@ import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { withSession } from "lib/withSession";
 import { NextApiHandler, NextApiResponse} from "next";
 import { Post } from "src/entity/Post";
-import { NextIronSessionRequest } from "next-env";
+import { NextIronSessionRequest } from "session-request";
 
 
 const Posts: NextApiHandler = async (

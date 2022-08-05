@@ -1,5 +1,28 @@
-body{
-  h1{
-    color: blue!important;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #262626;
+  font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue,
+    Helvetica, Arial, sans-serif;
+}
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: #262626;
+}
+a,
+input,
+button {
+  font: inherit;
+}
+h1 {
+  margin: 8px 0;
+}
+p {
+  margin: 4px 0;
 }

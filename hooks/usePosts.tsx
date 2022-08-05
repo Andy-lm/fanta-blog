@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Post } from 'next-env';
 
 export const usePosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
