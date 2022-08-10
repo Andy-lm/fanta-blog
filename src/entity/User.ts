@@ -11,7 +11,7 @@ import {
 } from "typeorm";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import md5 from "md5";
-import * as _ from "lodash"
+import * as _ from "lodash";
 
 @Entity("users")
 export class User {
@@ -37,7 +37,7 @@ export class User {
     passwordConfirmation: [] as string[],
   };
   // 检测参数是否存在问题
-   async validate() {
+  async validate() {
     if (this.username.trim() === "") {
       this.errors.username.push("用户名不能为空");
     }
@@ -76,21 +76,21 @@ export class User {
     if (this.passwordConfirmation !== this.password) {
       this.errors.passwordConfirmation.push("密码不匹配");
     }
-   }  
+  }
   // 检测
-   hasErrors() {
+  hasErrors() {
     return !!Object.values(this.errors).find((v) => v.length > 0);
-   }
-   @BeforeInsert()
-   generatePasswordDigest() {
+  }
+  @BeforeInsert()
+  generatePasswordDigest() {
     this.passwordDigest = md5(this.password);
-   }
-   toJSON() {
+  }
+  toJSON() {
     return _.omit(this, [
       "passwordConfirmation",
       "password",
-     "passwordDigest",
-     "errors",
-   ]);
-   }
+      "passwordDigest",
+      "errors",
+    ]);
+  }
 }

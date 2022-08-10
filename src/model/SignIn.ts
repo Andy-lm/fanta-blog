@@ -23,7 +23,7 @@ export class SignIn {
       where: {
         username: this.username,
       },
-    });
+    });    
     // 在找到user之后将其放在SignIn实体上
     this.user = user;
     if (user) {

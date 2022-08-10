@@ -9,6 +9,8 @@ exports.Post = void 0;
 
 var _initializerDefineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerDefineProperty"));
 
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -33,7 +35,7 @@ var Post = (_dec = (0, _typeorm.Entity)("posts"), _dec2 = (0, _typeorm.PrimaryGe
   return _Comment.Comment;
 }, function (comment) {
   return comment.post;
-}), _dec(_class = (_class2 = function Post() {
+}), _dec(_class = (_class2 = /*#__PURE__*/(0, _createClass2["default"])(function Post() {
   (0, _classCallCheck2["default"])(this, Post);
   (0, _initializerDefineProperty2["default"])(this, "id", _descriptor, this);
   (0, _initializerDefineProperty2["default"])(this, "title", _descriptor2, this);
@@ -43,7 +45,7 @@ var Post = (_dec = (0, _typeorm.Entity)("posts"), _dec2 = (0, _typeorm.PrimaryGe
   (0, _initializerDefineProperty2["default"])(this, "updatedAt", _descriptor6, this);
   (0, _initializerDefineProperty2["default"])(this, "author", _descriptor7, this);
   (0, _initializerDefineProperty2["default"])(this, "comments", _descriptor8, this);
-}, (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "id", [_dec2], {
+}), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "id", [_dec2], {
   configurable: true,
   enumerable: true,
   writable: true,
