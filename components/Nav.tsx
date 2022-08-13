@@ -59,7 +59,6 @@ const navRightItems: ReactChild[] = [
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
-
   const toggleDrawer = useCallback(
     (open: boolean) => {
       setOpen(open);

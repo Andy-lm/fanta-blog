@@ -50,7 +50,7 @@ const getPageOptions = (context: GetServerSidePropsContext) => {
   let currentPage = parseInt(urlObj.query["currentPage"]?.toString() || "1");
   currentPage = currentPage <= 0 ? 1 : currentPage;
   // 分页数量
-  const pageSize = 8;
+  const pageSize = 999;
   return {
     pageSize,
     currentPage,

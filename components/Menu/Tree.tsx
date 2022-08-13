@@ -4,7 +4,7 @@ const Menu = (props: any) => {
   return (
     <div>
       {data.length > 0 &&
-        data.map((item) => {
+        data.map((item:any) => {
           return (
             <div key={item.id}>
               <div>{item.title}</div>

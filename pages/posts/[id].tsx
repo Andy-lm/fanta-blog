@@ -2,6 +2,7 @@ import React from "react";
 import { NextPage, GetServerSideProps } from "next";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { Post } from "src/entity/Post";
+import styles from "./id.module.scss";
 
 type Props = {
   post: Post;
@@ -9,9 +10,11 @@ type Props = {
 const postsShow: NextPage<Props> = (props) => {
   const { post } = props;
   return (
-    <div>
-      <h1>{post?.title}</h1>
-      <article dangerouslySetInnerHTML={{ __html: post?.content }}></article>
+    <div className={styles.wrapper}>
+      <div className={styles.main}>
+        <h1 className={styles.title}>{post?.title}</h1>
+        <article dangerouslySetInnerHTML={{ __html: post?.content }} className={styles.content}></article>
+      </div>
     </div>
   );
 };

@@ -15,17 +15,18 @@ const PostItem = (props: { post: Post }) => {
         window.open(`/posts/${post.id}`);
       }}
     >
-      <div className={styles.title}>
-        <h3>{post.title}</h3>
-      </div>
-      <div className={styles.article}>{post.content}</div>
       <div className={styles.tips}>
         <span className={styles.author}>{post.author.username}</span>
         <span className={styles.dividing}></span>
         <span className={styles.duration}>
           {getRelativeTime(post.updatedAt.toString())}
         </span>
-        <span className={styles.dividing}></span>
+      </div>
+      <div>
+        <h3 className={styles.title}>{post.title}</h3>
+      </div>
+      <div className={styles.article}>{post.content}</div>
+      <div className={styles.action}>
         <span className={styles.comment}>
           <span>
             <ModeCommentOutlinedIcon
@@ -35,7 +36,7 @@ const PostItem = (props: { post: Post }) => {
               }}
             />
             <span className={styles.count}>
-              {post.comments.length ? post.comments.length : ""}
+              {post.comments.length ? post.comments.length : "去看看"}
             </span>
           </span>
         </span>

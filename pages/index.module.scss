@@ -6,19 +6,28 @@
   @media screen and (min-width: 998px) {
     .main_title {
       font-size: 60px;
+      font-weight: 400;
     }
     .sub_title {
       font-size: 35px;
-      font-weight: 400;
+      font-weight: 300;
     }
   }
   @media screen and (max-width: 750px) {
     .main_title {
       font-size: 30px;
+      font-weight: 400;
     }
     .sub_title {
       font-size: 20px;
-      font-weight: 400;
+      font-weight: 300;
     }
+  }
+  .bg {
+    width: 100%;
+    height: calc(100vh - 360px);
+    background-image: url("/home_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }

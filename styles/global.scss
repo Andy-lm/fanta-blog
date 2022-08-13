@@ -7,9 +7,6 @@
     Helvetica, Arial, sans-serif !important;
 }
 
-body {
-  // background-color: #f6f6f6;
-}
 *::after,
 *::before {
   box-sizing: border-box;
@@ -28,4 +25,29 @@ h1 {
 }
 p {
   margin: 4px 0;
+}
+
+// 覆盖ckEdit编辑器相关样式
+.ck-restricted-editing_mode_standard {
+  min-height: 600px;
+}
+
+.ck.ck-editor__editable > h1[data-placeholder="输入标题"] {
+  text-align: center;
+}
+
+.ck-focused {
+  border: 1px solid #00b96b !important;
+  box-shadow: none !important;
+}
+
+.ck-restricted-editing_mode_standard {
+  border: none !important;
+}
+
+.ck-toolbar {
+  border: none !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  border-bottom: 1px solid #d9d9d9 !important;
 }
