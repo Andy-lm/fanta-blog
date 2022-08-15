@@ -2,7 +2,7 @@ import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import md5 from "md5";
 import { User } from "src/entity/User";
 
-export class SignIn {
+export class SignInModel {
   username: string;
   password: string;
   errors = {

@@ -1,12 +1,12 @@
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
-import Link from "next/link";
 import { Post } from "src/entity/Post";
 import { withSession } from "lib/withSession";
 import queryString from "query-string";
 import usePager from "hooks/usePager";
 import styles from "./index.module.scss";
 import PostItem from "components/PostItem";
+import { Counter } from "features/Counter/Counter";
 
 type Props = {
   posts: Post[];
@@ -23,6 +23,7 @@ const PostsIndex: NextPage<Props> = (props) => {
 
   return (
     <div className={styles.wrapper}>
+      <Counter></Counter>
       <div style={{ height: "10px" }}></div>
       <div className={styles.content}>
         {posts.length > 0 &&

@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Nav from "components/Nav";
+import { store } from "../app/store";
+import { Provider } from "react-redux";
 import {
   createTheme,
   ThemeProvider,
@@ -26,7 +28,8 @@ const theme = responsiveFontSizes(
   })
 );
 
-export default function App({ Component, pageProps }) {
+export default function App(props) {
+  const { Component, pageProps } = props;
   return (
     <>
       <Head>
@@ -40,11 +43,12 @@ export default function App({ Component, pageProps }) {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Nav></Nav>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Nav></Nav>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
-

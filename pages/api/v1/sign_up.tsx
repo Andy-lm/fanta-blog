@@ -2,7 +2,7 @@ import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "src/entity/User";
 
-const Users = async (request: NextApiRequest, response: NextApiResponse) => {
+const SignUp = async (request: NextApiRequest, response: NextApiResponse) => {
   const body = request.body;
   const { username, password, passwordConfirmation } = body;
   // 连接数据库
@@ -25,4 +25,4 @@ const Users = async (request: NextApiRequest, response: NextApiResponse) => {
   response.end();
 };
 
-export default Users;
+export default SignUp;

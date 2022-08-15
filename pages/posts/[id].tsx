@@ -7,6 +7,7 @@ import styles from "./id.module.scss";
 type Props = {
   post: Post;
 };
+
 const postsShow: NextPage<Props> = (props) => {
   const { post } = props;
   return (

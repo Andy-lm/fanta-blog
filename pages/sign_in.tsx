@@ -5,6 +5,7 @@ import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { User } from "src/entity/User";
 import queryString from "query-string";
+import useUser from "hooks/useUser";
 
 type Props = {
   user: User | null;
@@ -13,7 +14,6 @@ type Props = {
 const SignIn: NextPage<Props> = (props) => {
   const { user } = props;
   const [currentUser, setCurrentUser] = useState(user);
-
   const { form } = useForm({
     initFormData: {
       username: "",
@@ -32,7 +32,7 @@ const SignIn: NextPage<Props> = (props) => {
       },
     ],
     submit: {
-      request: (formData) => Axios.post("/api/v1/sessions", formData),
+      request: (formData) => Axios.post("/api/v1/sign_in", formData),
       message: "登录成功！",
       successCallback: (response) => {
         const search = queryString.parse(window.location.search);

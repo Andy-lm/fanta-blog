@@ -21,7 +21,7 @@ const SignUp = () => {
       </div>
     ),
     submit: {
-      request: (formData) => Axios.post("/api/v1/users", formData),
+      request: (formData) => Axios.post("/api/v1/sign_up", formData),
       message: "注册成功！",
       successCallback: (response) => {
         window.location.href = "/sign_in";

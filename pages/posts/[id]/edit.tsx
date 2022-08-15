@@ -2,12 +2,20 @@ import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { GetServerSideProps, NextPage } from "next";
 import { Post } from "src/entity/Post";
 
-const PostsEdit: NextPage = () => {
+type Props = {
+  post: Post;
+};
+
+
+const PostsEdit: NextPage<Props> = (props) => {
+  const {post} = props;
+  console.log(post,"------");
+  
+
   return <div>PostsEdit</div>;
 };
 
 export default PostsEdit;
-
 
 export const getServerSideProps: GetServerSideProps<
   any,

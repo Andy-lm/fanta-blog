@@ -1,7 +1,7 @@
-import Link from "next/link";
 import getRelativeTime from "utils/getRelativeTime";
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
 import { Post } from "src/entity/Post";
+import filterHtml from "utils/filterHtml";
 import styles from "./PostItem.module.scss";
 
 const PostItem = (props: { post: Post }) => {
@@ -25,7 +25,7 @@ const PostItem = (props: { post: Post }) => {
       <div>
         <h3 className={styles.title}>{post.title}</h3>
       </div>
-      <div className={styles.article}>{post.content}</div>
+      <div className={styles.article}>{filterHtml(post.content)}</div>
       <div className={styles.action}>
         <span className={styles.comment}>
           <span>
