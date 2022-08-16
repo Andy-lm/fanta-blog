@@ -1,0 +1,42 @@
+@mixin logo_content {
+  display: flex;
+  align-items: center;
+  .logo_img {
+    width: 40px;
+    height: 40px;
+  }
+  .logo_font {
+    width: 84px;
+    height: 40px;
+  }
+}
+
+@mixin logo_content_mobile {
+  display: flex;
+  align-items: center;
+  .logo_img {
+    width: 30px;
+    height: 30px;
+  }
+  .logo_font {
+    width: 66px;
+    height: 36px;
+  }
+}
+
+@media screen and (min-width: 998px) {
+  .logo_content {
+    @include logo_content;
+  }
+}
+@media screen and (max-width: 998px) {
+  .logo_content {
+    @include logo_content;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .logo_content {
+    @include logo_content_mobile;
+  }
+}

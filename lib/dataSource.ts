@@ -14,11 +14,13 @@ export const AppDataSource = new DataSource({
   在本地连接postgresql时通过localhost，如果是docker容器中需要使用容器的IPA地址
   可通过docker inspect <容器名> | grep IPAddress来获取
   */
-  host: NODE_ENV === "development" ? "localhost" : "172.17.0.2",
+  // host: NODE_ENV === "development" ? "localhost" : "172.17.0.2",
+  host: "localhost",
   port: 5432,
   username: "blog",
   password: "123456",
-  database: NODE_ENV === "development" ? "blog_development" : "blog_production",
+  // database: NODE_ENV === "development" ? "blog_development" : "blog_production",
+  database: "blog_development",
   synchronize: false, // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除
   logging: false,
   //   entities: ["dist/entity/**/*.js"],

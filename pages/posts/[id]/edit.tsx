@@ -1,3 +1,8 @@
+import { Button } from "@material-ui/core";
+import Axios, { AxiosResponse } from "axios";
+import { useRouter } from "next/router";
+import Nav from "components/Nav";
+import useCKEdit from "hooks/useCKEdit";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { GetServerSideProps, NextPage } from "next";
 import { Post } from "src/entity/Post";
@@ -6,13 +11,59 @@ type Props = {
   post: Post;
 };
 
-
 const PostsEdit: NextPage<Props> = (props) => {
-  const {post} = props;
-  console.log(post,"------");
-  
+  const router = useRouter();
+  const { post } = props;
+  const { title, content, id } = post;
+  const { CKEdit, getCKEditData } = useCKEdit({
+    initData: `<h1>${title}</h1>${content}`,
+  });
 
-  return <div>PostsEdit</div>;
+  const submit = (
+    formData: { title: string; content: string } | null,
+    id: number
+  ) => {
+    if (!formData) return;
+    Axios.post("/api/v1/setPost", { ...formData, id }).then(
+      (response) => {
+        alert("修改成功！");
+        router.push("/posts");
+      },
+      (error) => {
+        const response: AxiosResponse = error.response;
+        if (response.status === 422) {
+          console.log("response.data");
+          console.log(response.data);
+        } else if (response.status === 401) {
+          window.alert("请先登录！");
+          window.location.href = `/sign_in?return_to=${encodeURIComponent(
+            window.location.pathname
+          )}`;
+        }
+      }
+    );
+  };
+
+  return (
+    <>
+      <Nav
+        extraRight={[
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
+            onClick={() => {
+              const formData = getCKEditData();
+              submit(formData, id);
+            }}
+          >
+            更新
+          </Button>,
+        ]}
+      ></Nav>
+      <div>{CKEdit}</div>
+    </>
+  );
 };
 
 export default PostsEdit;

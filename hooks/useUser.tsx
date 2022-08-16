@@ -1,9 +1,22 @@
 import useSWR from "swr";
 import Axios from "axios";
+import { User } from "src/entity/User";
+
+type useUserResponse = {
+  data?: {
+    user: User;
+    isLoggedIn: boolean;
+  };
+  error?: Object;
+  redirectTo: string;
+};
 
 const fetcher = (url: string) => Axios.get(url).then((res) => res.data);
-export default function useUser({ redirectTo = "" } = {}) {
+const useUser = (
+  { redirectTo = "" } = { redirectTo: "/sign_in" }
+): useUserResponse => {
   const { data, error } = useSWR("/api/v1/user", fetcher);
-  console.log(data, error, "---data, error");
   return { data, error, redirectTo };
-}
+};
+
+export default useUser;

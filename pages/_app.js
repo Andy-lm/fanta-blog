@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Nav from "components/Nav";
 import { store } from "../app/store";
 import { Provider } from "react-redux";
 import {
@@ -45,7 +44,6 @@ export default function App(props) {
       </Head>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <Nav></Nav>
           <Component {...pageProps} />
         </ThemeProvider>
       </Provider>

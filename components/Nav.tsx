@@ -1,11 +1,12 @@
 import Link from "next/link";
 import styles from "./Nav.module.scss";
-import Button from "@material-ui/core/Button";
-import { ReactChild, useCallback, useState } from "react";
+import { ReactChild, useCallback, useEffect, useState } from "react";
 import FormatIndentIncreaseIcon from "@material-ui/icons/FormatIndentIncrease";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Drawer from "@material-ui/core/Drawer";
 import Menu from "./Menu";
+import Logo from "./Logo";
+import Users from "./Users";
 
 type NavLeftItems = {
   title: string | ReactChild;
@@ -41,48 +42,30 @@ const navRightItems: ReactChild[] = [
   <Link href="/about">
     <a className={styles.about}>关于南橘</a>
   </Link>,
-  <Link href="/sign_in">
-    <a style={{ color: "#fff" }}>
-      <Button variant="contained" color="primary" size="small">
-        登录
-      </Button>
-    </a>
-  </Link>,
-  <Link href="/sign_up">
-    <a style={{ color: "#00b96b" }}>
-      <Button variant="outlined" color="primary" size="small">
-        注册
-      </Button>
-    </a>
-  </Link>,
+  <Users />,
 ];
 
-const Nav = () => {
+type Props = {
+  extraLeft?: ReactChild[];
+  extraRight?: ReactChild[];
+  alignLeft?: string[];
+  alignRight?: string[];
+};
+
+const Nav = (props: Props) => {
+  const { extraLeft, extraRight, alignLeft, alignRight } = props;
+  const [rightItem, setRightItem] = useState([...navRightItems]);
   const [open, setOpen] = useState(false);
-  const toggleDrawer = useCallback(
-    (open: boolean) => {
-      setOpen(open);
-    },
-    [open]
-  );
+  useEffect(() => {
+    if (extraRight) {
+      setRightItem([...navRightItems.concat(...extraRight)]);
+    }
+  }, [extraRight]);
 
   return (
     <nav className={styles.nav_wrapper}>
       <div className={styles.nav_left}>
-        <Link href="/">
-          <a>
-            <div className={styles.logo_content}>
-              <img src="/logo_pure.png" className={styles.logo} />
-              <img
-                src="/logo_font_color.png"
-                style={{
-                  width: "84px",
-                  height: "40px",
-                }}
-              />
-            </div>
-          </a>
-        </Link>
+        <Logo />
         {navLeftItems.length > 0 &&
           navLeftItems.map((item: any) => {
             return (
@@ -97,9 +80,9 @@ const Nav = () => {
           })}
       </div>
       <div className={styles.nav_right}>
-        {navRightItems.map((item, index) => {
+        {rightItem.map((item, index) => {
           return (
-            <div key={index} style={{ marginLeft: "10px" }}>
+            <div key={index} className={styles.item}>
               {item}
             </div>
           );
@@ -109,33 +92,16 @@ const Nav = () => {
         <FormatIndentIncreaseIcon
           style={{ fontSize: 20, color: "#262626", marginRight: "10px" }}
           onClick={() => {
-            toggleDrawer(true);
+            setOpen(true);
           }}
         />
-        <Link href="/">
-          <a style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src="/logo_pure.png"
-              style={{
-                width: "30px",
-                height: "30px",
-              }}
-            />
-            <img
-              src="/logo_font_color.png"
-              style={{
-                width: "66px",
-                height: "36px",
-              }}
-            />
-          </a>
-        </Link>
+        <Logo />
       </div>
       <Drawer
         anchor="left"
         open={open}
         onClose={() => {
-          toggleDrawer(false);
+          setOpen(false);
         }}
       >
         <Menu></Menu>

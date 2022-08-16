@@ -2,8 +2,7 @@ import { withSession } from "lib/withSession";
 import { NextApiResponse } from "next";
 import { NextIronSessionRequest } from "session-request";
 
-
-async function UserState(
+async function GetUser(
   request: NextIronSessionRequest,
   response: NextApiResponse
 ) {
@@ -22,4 +21,4 @@ async function UserState(
   }
 }
 
-export default withSession(UserState);
+export default withSession(GetUser);

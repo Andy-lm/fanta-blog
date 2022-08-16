@@ -1,17 +1,25 @@
-@mixin logo_content {
-  display: flex;
-  align-items: center;
-  .logo {
-    width: 40px;
-    height: 40px;
-  }
-}
-
 @mixin nav_right {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: right;
+  .item {
+    margin-left: 20px;
+  }
+}
+
+@mixin nav_left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  .item {
+    margin-left: 40px;
+    span {
+      &:hover {
+        color: #00b96b;
+      }
+    }
+  }
 }
 
 .nav_wrapper {
@@ -19,28 +27,12 @@
   background-color: #fff;
   display: flex;
   height: 60px;
-  padding: 8px 16px;
+  padding: 8px 24px 8px 16px;
   border-bottom: 1px solid #d9d9d9;
-  font-family: -apple-system, blinkmacsystemfont, "Helvetica Neue", helvetica,
-    segoe ui, arial, roboto, "PingFang SC", "miui", "Hiragino Sans GB",
-    "Microsoft Yahei", sans-serif;
   font-weight: 300;
   @media screen and (min-width: 998px) {
     .nav_left {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      .logo_content {
-        @include logo_content;
-      }
-      .item {
-        margin-left: 40px;
-        span {
-          &:hover {
-            color: #00b96b;
-          }
-        }
-      }
+      @include nav_left;
     }
     .nav_right {
       @include nav_right;
@@ -51,15 +43,7 @@
   }
   @media screen and (max-width: 998px) {
     .nav_left {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      .logo_content {
-        @include logo_content;
-      }
-      .item {
-        display: none;
-      }
+      @include nav_left;
     }
     .nav_right {
       @include nav_right;
@@ -86,15 +70,9 @@
 .add_tips {
   margin-top: -1px;
   margin-left: 3px;
-  &:hover {
-    color: #00b96b;
-  }
 }
 
 .about {
-  color: #262626;
-  font-size: 16px;
-  margin-right: 20px;
   &:hover {
     color: #00b96b;
   }

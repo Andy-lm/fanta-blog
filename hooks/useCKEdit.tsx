@@ -6,6 +6,11 @@ type Options = {
   initData: string;
 };
 
+type CKEditData = {
+  title: string;
+  content: string;
+} | null;
+
 const useCKEdit = (options: Options) => {
   const { initData } = options;
   const editorRef = useRef({});
@@ -22,7 +27,7 @@ const useCKEdit = (options: Options) => {
     setEditorLoaded(true);
   }, []);
 
-  const getCKEditData = useCallback(() => {
+  const getCKEditData = (): CKEditData => {
     const execArr = /^(<h1>[\s\S]*<\/h1>)([\s\S]*)/g.exec(data);
     let fromData = null;
     if (execArr) {
@@ -42,7 +47,7 @@ const useCKEdit = (options: Options) => {
       alert("请输入文章标题！");
     }
     return fromData;
-  }, [data]);
+  };
 
   const CKEdit = (
     <div className={styles.rich_text_wrapper}>

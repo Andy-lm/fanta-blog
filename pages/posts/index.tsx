@@ -6,7 +6,8 @@ import queryString from "query-string";
 import usePager from "hooks/usePager";
 import styles from "./index.module.scss";
 import PostItem from "components/PostItem";
-import { Counter } from "features/Counter/Counter";
+import Counter from "components/Counter";
+import Nav from "components/Nav";
 
 type Props = {
   posts: Post[];
@@ -22,21 +23,23 @@ const PostsIndex: NextPage<Props> = (props) => {
   console.log(posts, "==posts");
 
   return (
-    <div className={styles.wrapper}>
-      <Counter></Counter>
-      <div style={{ height: "10px" }}></div>
-      <div className={styles.content}>
-        {posts.length > 0 &&
-          posts.map((post) => {
-            return <PostItem post={post} key={post.id}></PostItem>;
-          })}
-        <br />
-        <hr />
-        <footer>
-          <div>{pager}</div>
-        </footer>
+    <>
+      <Nav />
+      <div className={styles.wrapper}>
+        <div style={{ height: "10px" }}></div>
+        <div className={styles.content}>
+          {posts.length > 0 &&
+            posts.map((post) => {
+              return <PostItem post={post} key={post.id}></PostItem>;
+            })}
+          <br />
+          <hr />
+          <footer>
+            <div>{pager}</div>
+          </footer>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default PostsIndex;
