@@ -14,7 +14,10 @@ const New = () => {
 
   const submit = (formData: { title: string; content: string } | null) => {
     if (!formData) return;
-    Axios.post("/api/v1/setPost", formData).then(
+    Axios.post("/api/v1/setPost", {
+      operationType: "add",
+      formData,
+    }).then(
       (response) => {
         alert("发布成功！");
         router.push("/posts");

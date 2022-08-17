@@ -5,8 +5,6 @@ import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { User } from "src/entity/User";
 import queryString from "query-string";
-import useUser from "hooks/useUser";
-import { useRouter } from "next/router";
 
 type Props = {
   user: User | null;
@@ -36,14 +34,13 @@ const SignIn: NextPage<Props> = (props) => {
       request: (formData) => Axios.post("/api/v1/signIn", formData),
       message: "登录成功！",
       successCallback: (response) => {
-        // const search = queryString.parse(window.location.search);
-        // const returnTo = search["return_to"]?.toString();
-        // if (returnTo) {
-        //   window.location.href = returnTo;
-        // }
-        // router.push("/posts");
-        // window.location.reload();
-        window.location.href = "/posts";
+        const search = queryString.parse(window.location.search);
+        const returnTo = search["return_to"]?.toString();
+        if (returnTo) {
+          window.location.href = returnTo;
+        } else {
+          window.location.href = "/posts";
+        }
       },
     },
     buttons: (

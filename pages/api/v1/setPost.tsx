@@ -4,6 +4,77 @@ import { NextApiHandler, NextApiResponse } from "next";
 import { Post } from "src/entity/Post";
 import { NextIronSessionRequest } from "session-request";
 import { User } from "src/entity/User";
+import { DataSource } from "typeorm";
+
+type FormData = {
+  title: string;
+  content: string;
+};
+
+type OperationType = "add" | "delete" | "update";
+
+const add = async (
+  connection: DataSource,
+  response: NextApiResponse,
+  formData: FormData,
+  postId: string,
+  user: User
+) => {
+  const newPost = new Post();
+  newPost.title = formData.title;
+  newPost.content = formData.content;
+  newPost.authorId = user.id;
+  const currentUser = await connection.manager.findOne(User, {
+    where: {
+      id: user.id,
+    },
+  });
+  newPost.author = currentUser;
+  await connection.manager.save(newPost);
+  response.json(newPost);
+};
+
+const update = async (
+  connection: DataSource,
+  response: NextApiResponse,
+  formData: FormData,
+  postId: string,
+  user: User
+) => {
+  const targetPost = await connection.manager.findOne(Post, {
+    where: {
+      id: postId,
+    },
+  });
+  if (!targetPost) {
+    response.statusCode = 404;
+    response.write(JSON.stringify({ post: ["修改资源未找到"] }));
+    response.end();
+  } else {
+    targetPost.title = formData.title;
+    targetPost.content = formData.content;
+    await connection.manager.save(targetPost);
+    response.json(targetPost);
+  }
+};
+
+const deletePost = async (
+  connection: DataSource,
+  response: NextApiResponse,
+  formData: FormData,
+  postId: string,
+  user: User
+) => {
+  const result = await connection.manager.delete(Post, postId);
+  response.statusCode = result.affected >= 0 ? 200 : 400;
+  response.end();
+};
+
+const mapOperationTypeToHandler = {
+  add,
+  update,
+  delete: deletePost, // delete为关键字不能作为方法名称
+};
 
 const setPost: NextApiHandler = async (
   request: NextIronSessionRequest,
@@ -18,37 +89,11 @@ const setPost: NextApiHandler = async (
       response.end();
       return;
     }
-    const { title, content, id } = request.body;
+    const { postId, formData } = request.body;
+    const operationType: OperationType = request.body.operationType;
     const connection = await getDatabaseConnection();
-    if (!id) {
-      console.log(id);
-      const post = new Post();
-      post.title = title;
-      post.content = content;
-      post.authorId = user.id;
-      const currentUser = await connection.manager.findOne(User, {
-        where: {
-          id: user.id,
-        },
-      });
-      post.author = currentUser;
-      await connection.manager.save(post);
-      response.json(post);
-    } else {
-      const post = await connection.manager.findOne(Post, {
-        where: id,
-      });
-      if (!post) {
-        response.statusCode = 404;
-        response.write(JSON.stringify({ post: ["修改资源未找到"] }));
-        response.end();
-      } else {
-        post.title = title;
-        post.content = content;
-        await connection.manager.save(post);
-        response.json(post);
-      }
-    }
+    const handler = mapOperationTypeToHandler[operationType];
+    await handler(connection, response, formData, postId, user);
   }
 };
 export default withSession(setPost);

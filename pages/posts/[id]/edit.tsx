@@ -14,17 +14,21 @@ type Props = {
 const PostsEdit: NextPage<Props> = (props) => {
   const router = useRouter();
   const { post } = props;
-  const { title, content, id } = post;
+  const { title, content, id: postId } = post;
   const { CKEdit, getCKEditData } = useCKEdit({
     initData: `<h1>${title}</h1>${content}`,
   });
 
   const submit = (
     formData: { title: string; content: string } | null,
-    id: number
+    postId: string
   ) => {
     if (!formData) return;
-    Axios.post("/api/v1/setPost", { ...formData, id }).then(
+    Axios.post("/api/v1/setPost", {
+      operationType: "update",
+      postId,
+      formData,
+    }).then(
       (response) => {
         alert("修改成功！");
         router.push("/posts");
@@ -54,7 +58,7 @@ const PostsEdit: NextPage<Props> = (props) => {
             size="small"
             onClick={() => {
               const formData = getCKEditData();
-              submit(formData, id);
+              submit(formData, postId);
             }}
           >
             更新
