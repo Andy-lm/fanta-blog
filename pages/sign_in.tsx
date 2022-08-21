@@ -4,15 +4,26 @@ import { withSession } from "lib/withSession";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { User } from "src/entity/User";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 import queryString from "query-string";
+import styles from "./sign.module.scss";
+import Logo from "components/Logo";
+import Button from "@material-ui/core/Button";
+import Link from "next/link";
 
 type Props = {
   user: User | null;
 };
 
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
 const SignIn: NextPage<Props> = (props) => {
   const { user } = props;
   const [currentUser, setCurrentUser] = useState(user);
+  const [open, setOpen] = useState(false);
   const { form } = useForm({
     initFormData: {
       username: "",
@@ -32,20 +43,32 @@ const SignIn: NextPage<Props> = (props) => {
     ],
     submit: {
       request: (formData) => Axios.post("/api/v1/signIn", formData),
-      message: "登录成功！",
       successCallback: (response) => {
-        const search = queryString.parse(window.location.search);
-        const returnTo = search["return_to"]?.toString();
-        if (returnTo) {
-          window.location.href = returnTo;
-        } else {
-          window.location.href = "/posts";
-        }
+        setOpen(true);
+        // 延时一秒展示toast
+        setTimeout(() => {
+          const search = queryString.parse(window.location.search);
+          const returnTo = search["return_to"]?.toString();
+          if (returnTo) {
+            window.location.href = returnTo;
+          } else {
+            window.location.href = "/posts";
+          }
+        }, 1000);
       },
     },
     buttons: (
-      <div>
-        <button type="submit">登录</button>
+      <div style={{ marginTop: "50px" }}>
+        <Button variant="contained" color="primary" size="medium" type="submit">
+          登录
+        </Button>
+        {/* <Link href="/sign_up">
+          <a>
+            <Button variant="text" color="primary" size="medium">
+              注册
+            </Button>
+          </a>
+        </Link> */}
       </div>
     ),
   });
@@ -54,15 +77,36 @@ const SignIn: NextPage<Props> = (props) => {
     setCurrentUser(user);
   }, [user]);
 
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
-    <div>
-      {currentUser ? (
-        <div>当前登录用户为 {currentUser?.username}</div>
-      ) : (
-        <div>未登录</div>
-      )}
-      <h1>登录</h1>
-      {form}
+    <div className={styles.wrapper}>
+      <div className={styles.middle}>
+        <div className={styles.logo}>
+          <Logo size="large"></Logo>
+        </div>
+        <div className={styles.form}>{form}</div>
+        <div className={styles.tips}>
+          <Link href="/sign_up">
+            <a >没有账号？注册一个</a>
+          </Link>
+        </div>
+      </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          登录成功！
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

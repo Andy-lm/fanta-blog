@@ -1,12 +1,13 @@
 import { AxiosResponse } from "axios";
 import { FormEventHandler, ReactChild, useCallback, useState } from "react";
+import styles from "./useForm.module.scss";
+import TextField from "@material-ui/core/TextField";
 
 type useFormOptions<T> = {
   initFormData: T;
   fields: Field<T>[];
   submit: {
     request: (formData: T) => Promise<AxiosResponse>;
-    message: string;
     successCallback?: (response: AxiosResponse) => void;
   };
   buttons: ReactChild;
@@ -58,7 +59,6 @@ function useForm<T>(options: useFormOptions<T>) {
       });
       submit.request(formData).then(
         (response) => {
-          alert(submit.message);
           submit.successCallback(response);
         },
         (error) => {
@@ -83,29 +83,19 @@ function useForm<T>(options: useFormOptions<T>) {
     <form onSubmit={_onSubmit}>
       {fields.map((field) => {
         return (
-          <div key={field.key.toString()}>
-            <label>
-              {field.label}
-              {field.type === "textarea" ? (
-                <textarea
-                  onChange={(e) => {
-                    onChange(field.key, e);
-                  }}
-                  value={formData[field.key].toString()}
-                />
-              ) : (
-                <input
-                  type={field.type}
-                  value={formData[field.key].toString()}
-                  onChange={(e) => {
-                    onChange(field.key, e);
-                  }}
-                />
-              )}
-            </label>
-            {errors[field.key]?.length > 0 && (
-              <div>{errors[field.key].join(",")}</div>
-            )}
+          <div className={styles.from_item} key={field.key.toString()}>
+            <TextField
+              error={errors[field.key]?.length > 0 ? true : false}
+              id={field.label}
+              label={field.label}
+              value={formData[field.key].toString()}
+              onChange={(e) => {
+                onChange(field.key, e);
+              }}
+              // variant="outlined"
+              size="small"
+              helperText={errors[field.key].join(",")}
+            ></TextField>
           </div>
         );
       })}
@@ -114,5 +104,4 @@ function useForm<T>(options: useFormOptions<T>) {
   );
   return { form, setErrors };
 }
-
 export default useForm;

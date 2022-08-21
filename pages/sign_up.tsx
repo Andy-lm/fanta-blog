@@ -1,7 +1,21 @@
 import Axios from "axios";
 import useForm from "hooks/useForm";
+import styles from "./sign.module.scss";
+import Logo from "components/Logo";
+import Button from "@material-ui/core/Button";
+import { Snackbar } from "@material-ui/core";
+import { useState } from "react";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const SignUp = () => {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
   const initFormData = {
     username: "",
     password: "",
@@ -16,23 +30,48 @@ const SignUp = () => {
       { label: "确认密码", type: "password", key: "passwordConfirmation" },
     ],
     buttons: (
-      <div>
-        <button>注册</button>
+      <div style={{ marginTop: "40px" }}>
+        <Button variant="contained" color="primary" size="medium" type="submit">
+          注册
+        </Button>
       </div>
     ),
     submit: {
       request: (formData) => Axios.post("/api/v1/signUp", formData),
-      message: "注册成功！",
       successCallback: (response) => {
-        window.location.href = "/sign_in";
+        setOpen(true);
+        setTimeout(() => {
+          router.push("/sign_in");
+        }, 1000);
       },
     },
   });
 
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
-    <div>
-      <h1>注册</h1>
-      {form}
+    <div className={styles.wrapper}>
+      <div className={styles.middle}>
+        <div className={styles.logo}>
+          <Logo size="large" />
+        </div>
+        <div className={styles.form}>{form}</div>
+      </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          注册成功！前去登录
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

@@ -31,7 +31,7 @@ const PostsEdit: NextPage<Props> = (props) => {
     }).then(
       (response) => {
         alert("修改成功！");
-        router.push("/posts");
+        router.push(`/posts/${postId}`);
       },
       (error) => {
         const response: AxiosResponse = error.response;

@@ -20,8 +20,7 @@ type Props = {
 const PostsIndex: NextPage<Props> = (props) => {
   const { posts, total, currentPage, totalPage } = props;
   const { pager } = usePager({ currentPage, totalPage, total });
-  console.log(posts, "==posts");
-
+  
   return (
     <>
       <Nav />

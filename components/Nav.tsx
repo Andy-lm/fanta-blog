@@ -7,17 +7,14 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "./Menu";
 import Logo from "./Logo";
 import Users from "./Users";
+import useUser from "hooks/useUser";
 
-type NavLeftItems = {
-  title: string | ReactChild;
-  key: string;
-  url: string;
-};
-
-const navLeftItems: NavLeftItems[] = [
-  { title: "推荐", key: "posts", url: "/posts" },
-  {
-    title: (
+const navLeftItems = [
+  <Link href="/posts">
+    <a>推荐</a>
+  </Link>,
+  <Link href="/posts/new">
+    <a>
       <span
         style={{
           display: "flex",
@@ -32,10 +29,8 @@ const navLeftItems: NavLeftItems[] = [
         />
         <span className={styles.add_tips}>创作</span>
       </span>
-    ),
-    key: "new",
-    url: "/posts/new",
-  },
+    </a>
+  </Link>,
 ];
 
 const navRightItems: ReactChild[] = [
@@ -66,18 +61,13 @@ const Nav = (props: Props) => {
     <nav className={styles.nav_wrapper}>
       <div className={styles.nav_left}>
         <Logo />
-        {navLeftItems.length > 0 &&
-          navLeftItems.map((item: any) => {
-            return (
-              <span key={item.key} className={styles.item}>
-                <Link href={item.url}>
-                  <a>
-                    <span>{item.title}</span>
-                  </a>
-                </Link>
-              </span>
-            );
-          })}
+        {navLeftItems.map((item, index) => {
+          return (
+            <div key={index} className={styles.item}>
+              {item}
+            </div>
+          );
+        })}
       </div>
       <div className={styles.nav_right}>
         {rightItem.map((item, index) => {

@@ -9,6 +9,14 @@
     width: 84px;
     height: 40px;
   }
+  .logo_img_large {
+    width: 70px;
+    height: 70px;
+  }
+  .logo_font_large {
+    width: 90px;
+    height: 52px;
+  }
 }
 
 @mixin logo_content_mobile {
@@ -21,6 +29,14 @@
   .logo_font {
     width: 66px;
     height: 36px;
+  }
+  .logo_img_large {
+    width: 70px;
+    height: 70px;
+  }
+  .logo_font_large {
+    width: 90px;
+    height: 50px;
   }
 }
 

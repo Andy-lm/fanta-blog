@@ -1,7 +1,33 @@
 import { Button } from "@material-ui/core";
 import useUser from "hooks/useUser";
 import Link from "next/link";
+import Axios, { AxiosResponse } from "axios";
+import { Popover } from "antd";
 import styles from "./Users.module.scss";
+
+const content = (
+  <div>
+    <span
+      className={styles.user_action}
+      onClick={() => {
+        Axios.get("/api/v1/signOut").then(
+          (response) => {
+            console.log(response.data);
+            alert("退出成功！");
+            window.location.href = "/sign_in";
+          },
+          (error) => {
+            const response: AxiosResponse = error.response;
+            console.error("response.data");
+            console.error(response.data);
+          }
+        );
+      }}
+    >
+      退出登录
+    </span>
+  </div>
+);
 
 const Users = () => {
   const { data: userData } = useUser();
@@ -27,7 +53,9 @@ const Users = () => {
           </Link>
         </div>
       ) : (
-        <div className={styles.username}>{user.username}</div>
+        <Popover content={content} trigger="hover" placement="bottomRight">
+          <div className={styles.username}>{user.username}</div>
+        </Popover>
       )}
     </>
   );

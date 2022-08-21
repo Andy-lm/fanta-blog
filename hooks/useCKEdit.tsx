@@ -51,24 +51,26 @@ const useCKEdit = (options: Options) => {
 
   const CKEdit = (
     <div className={styles.rich_text_wrapper}>
-      {editorLoaded ? (
-        <CKEditor
-          editor={CustomEditor}
-          data={data}
-          // @ts-ignore
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
-          // @ts-ignore
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            setData(data);
-          }}
-        />
-      ) : (
-        <p>loading...</p>
-      )}
+      <div className="typo">
+        {editorLoaded ? (
+          <CKEditor
+            editor={CustomEditor}
+            data={data}
+            // @ts-ignore
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            // @ts-ignore
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setData(data);
+            }}
+          ></CKEditor>
+        ) : (
+          <p>loading...</p>
+        )}
+      </div>
     </div>
   );
 

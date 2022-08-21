@@ -1,12 +1,17 @@
+import { useEffect } from "react";
 import Head from "next/head";
+import useUser from "hooks/useUser";
+import { useRouter } from "next/router";
 import { store } from "../app/store";
 import { Provider } from "react-redux";
+import "antd/dist/antd.css";
+import "styles/global.scss";
+import "styles/markdown.scss";
 import {
   createTheme,
   ThemeProvider,
   responsiveFontSizes,
 } from "@material-ui/core/styles";
-import "styles/global.scss";
 
 const theme = responsiveFontSizes(
   createTheme({
@@ -27,8 +32,30 @@ const theme = responsiveFontSizes(
   })
 );
 
+const LoginPermissionsUrl = [/posts\/new/, /posts\/\S+\/edit/];
+
 export default function App(props) {
+  const router = useRouter();
   const { Component, pageProps } = props;
+  const { data: userData } = useUser();
+  const isLoggedIn = userData?.isLoggedIn;
+
+  // 建立一个路由拦截器，拦截非登录状态不允许访问的路由跳转
+  const handleRouteChange = (url) => {
+    let res = LoginPermissionsUrl.find((exp) => {
+      return exp.test(url);
+    });
+    if (!isLoggedIn && res) {
+      window.location.href = "/sign_in";
+    }
+  };
+  useEffect(() => {
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [userData]);
+
   return (
     <>
       <Head>

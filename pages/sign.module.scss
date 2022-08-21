@@ -1,0 +1,33 @@
+.wrapper {
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  .middle {
+    text-align: center;
+    min-width: 400px;
+    min-height: 540px;
+    background-color: #fff;
+    padding: 0 16px 16px;
+    border: 0.5px solid #eff0f0;
+    box-shadow: 0 8px 32px 0 rgb(216 218 217 / 60%);
+    border-radius: 10px;
+    padding-top: 100px;
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .tips {
+      margin-top: 45px;
+      font-size: 13px;
+      a {
+        color: rgba(0, 0, 0, 0.3);
+        &:hover {
+          color: #00b96b;
+        }
+      }
+    }
+  }
+}

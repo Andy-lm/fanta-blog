@@ -5,8 +5,8 @@ import { Post } from "src/entity/Post";
 import styles from "./id.module.scss";
 import Nav from "components/Nav";
 import { Button } from "@material-ui/core";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import useUser from "hooks/useUser";
 
 type Props = {
   post: Post;
@@ -14,26 +14,30 @@ type Props = {
 
 const postsShow: NextPage<Props> = (props) => {
   const { post } = props;
-  const router = useRouter();
+  const { data: userData } = useUser();
+  const isLoggedIn = userData?.isLoggedIn;
   return (
     <>
       <Nav
-        extraRight={[
-          <Link href={`/posts/${post.id}/edit`}>
-            <a>
-              <Button variant="outlined" color="primary" size="small">
-                编辑
-              </Button>
-            </a>
-          </Link>,
-        ]}
+        extraRight={
+          isLoggedIn
+            ? [
+                <Link href={`/posts/${post.id}/edit`}>
+                  <a>
+                    <Button variant="outlined" color="primary" size="small">
+                      编辑
+                    </Button>
+                  </a>
+                </Link>,
+              ]
+            : []
+        }
       ></Nav>
-      <div className={styles.wrapper}>
+      <div className="typo">
         <div className={styles.main}>
-          <h1 className={styles.title}>{post?.title}</h1>
+          <h1>{post?.title}</h1>
           <article
             dangerouslySetInnerHTML={{ __html: post?.content }}
-            className={styles.content}
           ></article>
         </div>
       </div>

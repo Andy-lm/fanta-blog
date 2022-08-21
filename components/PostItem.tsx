@@ -22,7 +22,9 @@ const PostItem = (props: { post: Post }) => {
           <div>
             <h3 className={styles.title}>{post.title}</h3>
           </div>
-          <div className={styles.article}>{filterHtml(post.content)}</div>
+          <div className={styles.article}>
+            {filterHtml(post.content).slice(0, 100)}
+          </div>
           <div className={styles.action}>
             <span className={styles.comment}>
               <span>

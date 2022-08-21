@@ -14,6 +14,9 @@
 a {
   text-decoration: none;
   color: #262626;
+  &:hover {
+    color: #00b96b;
+  }
 }
 a,
 input,
