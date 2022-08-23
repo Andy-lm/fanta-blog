@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
 import Nav from "components/Nav";
+import Users from "components/Users";
 import useUser from "hooks/useUser";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ const Home = () => {
   const isLoggedIn = userData?.isLoggedIn;
   return (
     <>
-      <Nav />
+      <Nav extraRight={[<Users />]} />
       <div className={styles.wrapper}>
         <h1 className={styles.main_title}>
           <span style={{ color: "#00b96b" }}>南橘</span>，认识有趣的人

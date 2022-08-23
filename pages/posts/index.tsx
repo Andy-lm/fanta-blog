@@ -6,8 +6,8 @@ import queryString from "query-string";
 import usePager from "hooks/usePager";
 import styles from "./index.module.scss";
 import PostItem from "components/PostItem";
-import Counter from "components/Counter";
 import Nav from "components/Nav";
+import Users from "components/Users";
 
 type Props = {
   posts: Post[];
@@ -20,10 +20,10 @@ type Props = {
 const PostsIndex: NextPage<Props> = (props) => {
   const { posts, total, currentPage, totalPage } = props;
   const { pager } = usePager({ currentPage, totalPage, total });
-  
+
   return (
     <>
-      <Nav />
+      <Nav extraRight={[<Users />]} />
       <div className={styles.wrapper}>
         <div style={{ height: "10px" }}></div>
         <div className={styles.content}>

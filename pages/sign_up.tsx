@@ -69,7 +69,7 @@ const SignUp = () => {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="success">
-          注册成功！前去登录
+          注册成功！
         </Alert>
       </Snackbar>
     </div>

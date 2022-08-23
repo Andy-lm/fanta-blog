@@ -37,7 +37,6 @@ const navRightItems: ReactChild[] = [
   <Link href="/about">
     <a className={styles.about}>关于南橘</a>
   </Link>,
-  <Users />,
 ];
 
 type Props = {
