@@ -75,6 +75,9 @@ const getPosts = async (currentPage: number, pageSize: number) => {
     },
     skip: (currentPage - 1) * pageSize,
     take: pageSize,
+    order: {
+      updatedAt: "DESC", // 按时间升序排列
+    },
   });
 };
 
@@ -83,6 +86,7 @@ export const getServerSideProps: GetServerSideProps = withSession(
   async (context: GetServerSidePropsContext) => {
     const { currentPage, pageSize } = getPageOptions(context);
     const [posts, count] = await getPosts(currentPage, pageSize);
+
     return {
       props: {
         posts: JSON.parse(JSON.stringify(posts)),

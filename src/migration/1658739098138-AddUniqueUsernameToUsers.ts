@@ -10,9 +10,7 @@ export class AddUniqueUsernameToUsers1658739098138 implements MigrationInterface
             isUnique:true
         }))
     }
-
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropIndex("users","users_username")
     }
-
 }
