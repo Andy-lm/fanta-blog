@@ -15,7 +15,7 @@ const fetcher = (url: string) => Axios.get(url).then((res) => res.data);
 const useUser = (
   { redirectTo = "" } = { redirectTo: "/sign_in" }
 ): useUserResponse => {
-  const { data, error } = useSWR("/api/v1/user", fetcher);
+  const { data, error } = useSWR("/api/v1/session", fetcher);
   return { data, error, redirectTo };
 };
 

@@ -6,8 +6,6 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Drawer from "@material-ui/core/Drawer";
 import Menu from "./Menu";
 import Logo from "./Logo";
-import Users from "./Users";
-import useUser from "hooks/useUser";
 
 const navLeftItems = [
   <Link href="/posts">

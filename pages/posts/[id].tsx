@@ -25,7 +25,7 @@ const postsShow: NextPage<Props> = (props) => {
     <div className={styles.more_actions_item}>
       <a
         onClick={() => {
-          Axios.post("/api/v1/setPost", {
+          Axios.post("/api/v1/post/setPost", {
             operationType: "delete",
             postId: post.id,
           }).then(

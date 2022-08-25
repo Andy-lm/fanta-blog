@@ -24,7 +24,7 @@ const PostsEdit: NextPage<Props> = (props) => {
     postId: string
   ) => {
     if (!formData) return;
-    Axios.post("/api/v1/setPost", {
+    Axios.post("/api/v1/post/setPost", {
       operationType: "update",
       postId,
       formData,

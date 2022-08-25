@@ -14,7 +14,7 @@ const New = () => {
 
   const submit = (formData: { title: string; content: string } | null) => {
     if (!formData) return;
-    Axios.post("/api/v1/setPost", {
+    Axios.post("/api/v1/post/setPost", {
       operationType: "add",
       formData,
     }).then(
