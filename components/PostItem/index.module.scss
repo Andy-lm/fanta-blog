@@ -32,40 +32,11 @@
     margin-bottom: 4px;
     color: black;
     &:hover {
-        color: #585a5a;
+      color: #585a5a;
     }
   }
   .article {
     color: #585a5a;
     font-size: 15px;
-  }
-
-  .action {
-    margin-top: 15px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-
-    .comment {
-      display: inline-block;
-      .comment_icon {
-        font-size: 18;
-        color: "#86909c";
-      }
-      span {
-        display: flex;
-        align-items: center;
-        .count {
-          margin-left: 2px;
-          margin-top: -3px;
-          color: #86909c;
-          font-size: 12px;
-          font-weight: 300;
-          &:hover {
-            color: #00b96b;
-          }
-        }
-      }
-    }
   }
 }

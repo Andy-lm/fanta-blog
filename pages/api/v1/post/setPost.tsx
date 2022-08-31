@@ -17,7 +17,7 @@ const add = async (
   connection: DataSource,
   response: NextApiResponse,
   formData: FormData,
-  postId: string,
+  postId: number,
   user: User
 ) => {
   const newPost = new Post();
@@ -38,7 +38,7 @@ const update = async (
   connection: DataSource,
   response: NextApiResponse,
   formData: FormData,
-  postId: string,
+  postId: number,
   user: User
 ) => {
   const targetPost = await connection.manager.findOne(Post, {
@@ -62,7 +62,7 @@ const deletePost = async (
   connection: DataSource,
   response: NextApiResponse,
   formData: FormData,
-  postId: string,
+  postId: number,
   user: User
 ) => {
   const result = await connection.manager.delete(Post, postId);

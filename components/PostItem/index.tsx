@@ -1,9 +1,9 @@
 import getRelativeTime from "utils/getRelativeTime";
-import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
 import { Post } from "src/entity/Post";
 import filterHtml from "utils/filterHtml";
-import styles from "./PostItem.module.scss";
+import Widgets from "./Widgets";
 import Link from "next/link";
+import styles from "./index.module.scss";
 
 const PostItem = (props: { post: Post }) => {
   const { post } = props;
@@ -25,21 +25,7 @@ const PostItem = (props: { post: Post }) => {
           <div className={styles.article}>
             {filterHtml(post.content).slice(0, 100)}
           </div>
-          <div className={styles.action}>
-            <span className={styles.comment}>
-              <span>
-                <ModeCommentOutlinedIcon
-                  style={{
-                    fontSize: 16,
-                    color: "#86909c",
-                  }}
-                />
-                <span className={styles.count}>
-                  {post.comments.length ? post.comments.length : "去看看"}
-                </span>
-              </span>
-            </span>
-          </div>
+          <Widgets post={post} />
         </div>
       </a>
     </Link>

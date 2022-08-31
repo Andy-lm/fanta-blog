@@ -4,6 +4,8 @@ import { Post } from "src/entity/Post";
 import { User } from "src/entity/User";
 import { Comment } from "src/entity/Comment";
 import { DataSource } from "typeorm";
+import { Agree } from "src/entity/Agree";
+import { AgreeCount } from "src/entity/AgreeCount";
 
 const NODE_ENV = process.env.NODE_ENV;
 console.log(NODE_ENV, "======NODE_ENV");
@@ -24,7 +26,7 @@ export const AppDataSource = new DataSource({
   synchronize: false, // 该值设置为false，避免我们在修改数据的时候导致一些数据被删除
   logging: false,
   //   entities: ["dist/entity/**/*.js"],
-  entities: [Post, User, Comment], // 通过reflect-metadata就可以拿到Post、User、 Comment这些entity上的属性名、属性值类型
+  entities: [Post, User, Comment, Agree, AgreeCount], // 通过reflect-metadata就可以拿到Post、User、 Comment这些entity上的属性名、属性值类型
   migrations: ["dist/migration/**/*.js"],
   subscribers: ["dist/subscribers/**/*.js"],
 });

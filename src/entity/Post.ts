@@ -14,7 +14,7 @@ import { Comment } from "./Comment";
 @Entity("posts")
 export class Post {
   @PrimaryGeneratedColumn("increment")
-  id: string;
+  id: number;
   @Column("varchar")
   title: string;
   @Column("text")
@@ -29,4 +29,6 @@ export class Post {
   author: User;
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
+  isAgree?: boolean;
+  agreeCount?: number;
 }

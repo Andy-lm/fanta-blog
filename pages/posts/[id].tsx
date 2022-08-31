@@ -105,7 +105,7 @@ export const getServerSideProps: GetServerSideProps<
   const connection = await await getDatabaseConnection();
   let post = await connection.manager.findOne(Post, {
     where: {
-      id: context.params.id,
+      id: parseInt(context.params.id),
     },
   });
 

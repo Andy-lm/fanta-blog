@@ -1,0 +1,55 @@
+@mixin action_wrapper {
+  display: inline-block;
+  margin-right: 10px;
+  span {
+    display: flex;
+    align-items: center;
+    &:hover {
+      .action_icon {
+        color: #00b96b;
+      }
+      .count {
+        color: #00b96b;
+      }
+    }
+    .action_icon {
+      color: #86909c;
+      font-size: 18px;
+    }
+
+    .count {
+      margin-left: 4px;
+      color: #86909c;
+      font-size: 12px;
+    }
+  }
+}
+
+.action {
+  margin-top: 15px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  .action_wrapper {
+    @include action_wrapper;
+    .agree {
+      &:hover {
+        .action_icon {
+          color: #faad14;
+        }
+        .count {
+          color: #faad14;
+        }
+      }
+      .action_icon_agreed {
+        color: #faad14;
+        font-size: 18px;
+      }
+      .count_agreed {
+        margin-left: 4px;
+        color: #faad14;
+        font-size: 12px;
+      }
+    }
+  }
+}

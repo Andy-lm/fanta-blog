@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 
 @Entity("agree_count")
-export class Agree {
+export class AgreeCount {
   @PrimaryGeneratedColumn("increment")
   id: number;
   @Column("int")
