@@ -7,7 +7,6 @@ import { Snackbar } from "@material-ui/core";
 import { useState } from "react";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

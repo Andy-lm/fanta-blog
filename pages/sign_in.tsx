@@ -2,7 +2,7 @@ import Axios from "axios";
 import useForm from "hooks/useForm";
 import { withSession } from "lib/withSession";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { User } from "src/entity/User";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -11,6 +11,7 @@ import styles from "./sign.module.scss";
 import Logo from "components/Logo";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
+import React from "react";
 
 type Props = {
   user: User | null;
@@ -19,7 +20,6 @@ type Props = {
 const Alert = (props: AlertProps) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
-
 const SignIn: NextPage<Props> = (props) => {
   const { user } = props;
   const [currentUser, setCurrentUser] = useState(user);
@@ -62,13 +62,6 @@ const SignIn: NextPage<Props> = (props) => {
         <Button variant="contained" color="primary" size="medium" type="submit">
           登录
         </Button>
-        {/* <Link href="/sign_up">
-          <a>
-            <Button variant="text" color="primary" size="medium">
-              注册
-            </Button>
-          </a>
-        </Link> */}
       </div>
     ),
   });
@@ -93,7 +86,7 @@ const SignIn: NextPage<Props> = (props) => {
         <div className={styles.form}>{form}</div>
         <div className={styles.tips}>
           <Link href="/sign_up">
-            <a >没有账号？注册一个</a>
+            <a>没有账号？注册一个</a>
           </Link>
         </div>
       </div>
