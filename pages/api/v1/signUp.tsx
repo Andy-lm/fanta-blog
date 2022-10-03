@@ -12,7 +12,7 @@ const SignUp = async (request: NextApiRequest, response: NextApiResponse) => {
   user.username = username;
   user.password = password;
   user.passwordConfirmation = passwordConfirmation;
-  await user.validate();
+  await user.validate(connection);
   if (user.hasErrors()) {
     response.statusCode = 422; // 422 状态码表示服务器理解请求实体的内容类型，并且请求实体的语法是正确的，但是服务器无法处理所包含的指令，用于密码不一致很适合
     response.write(JSON.stringify(user.errors));

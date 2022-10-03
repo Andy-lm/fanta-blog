@@ -8,8 +8,8 @@ import {
   UpdateDateColumn,
   OneToMany,
   BeforeInsert,
+  DataSource,
 } from "typeorm";
-import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import md5 from "md5";
 import * as _ from "lodash";
 
@@ -37,11 +37,10 @@ export class User {
     passwordConfirmation: [] as string[],
   };
   // 检测参数是否存在问题
-  async validate() {
+  async validate(connection: DataSource) {
     if (this.username.trim() === "") {
       this.errors.username.push("用户名不能为空");
     }
-
     if (!/[a-zA-Z0-9_]/.test(this.username.trim())) {
       this.errors.username.push("用户名格式不合法，应只包括数字、字母、下划线");
     }
@@ -52,9 +51,7 @@ export class User {
     if (this.username.trim().length <= 3) {
       this.errors.username.push("用户名太短");
     }
-    const found = await (
-      await getDatabaseConnection()
-    ).manager.findOne(User, {
+    const found = await connection.manager.findOne(User, {
       where: {
         username: this.username,
       },

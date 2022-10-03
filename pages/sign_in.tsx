@@ -1,8 +1,9 @@
+import React from "react";
 import Axios from "axios";
 import useForm from "hooks/useForm";
 import { withSession } from "lib/withSession";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "src/entity/User";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -11,7 +12,7 @@ import styles from "./sign.module.scss";
 import Logo from "components/Logo";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
-import React from "react";
+
 
 type Props = {
   user: User | null;

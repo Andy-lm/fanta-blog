@@ -27,8 +27,6 @@ var _Comment = require("./Comment");
 
 var _typeorm = require("typeorm");
 
-var _getDatabaseConnection = require("lib/getDatabaseConnection");
-
 var _md = _interopRequireDefault(require("md5"));
 
 var _ = _interopRequireWildcard(require("lodash"));
@@ -72,7 +70,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
     key: "validate",
     value: // 检测参数是否存在问题
     function () {
-      var _validate = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _validate = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(connection) {
         var found;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -95,17 +93,13 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
                 }
 
                 _context.next = 6;
-                return (0, _getDatabaseConnection.getDatabaseConnection)();
-
-              case 6:
-                _context.next = 8;
-                return _context.sent.manager.findOne(User, {
+                return connection.manager.findOne(User, {
                   where: {
                     username: this.username
                   }
                 });
 
-              case 8:
+              case 6:
                 found = _context.sent;
 
                 if (found) {
@@ -128,7 +122,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
                   this.errors.passwordConfirmation.push("密码不匹配");
                 }
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -136,7 +130,7 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
         }, _callee, this);
       }));
 
-      function validate() {
+      function validate(_x) {
         return _validate.apply(this, arguments);
       }
 

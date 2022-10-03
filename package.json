@@ -6,7 +6,7 @@
     "dev": "next dev & babel -w ./src --out-dir dist --extensions .ts,.tsx",
     "build": "next build",
     "start": "next start",
-    "typeorm:build": "babel ./src --out-dir dist --extensions .ts,.tsx",
+    "orm:build": "babel ./src --out-dir dist --extensions .ts,.tsx",
     "m:create": "typeorm migration:create",
     "e:create": "typeorm entity:create",
     "m:run": "typeorm migration:run -d ./dist/data-source.js",
