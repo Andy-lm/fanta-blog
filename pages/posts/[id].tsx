@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { NextPage, GetServerSideProps } from "next";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { Post } from "src/entity/Post";
@@ -9,8 +9,11 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Link from "next/link";
 import useUser from "hooks/useUser";
 import Popover from "antd/lib/popover";
-import Axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
+import Axios, { AxiosResponse } from "axios";
+import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
+import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
+import Collapse from "@material-ui/core/Collapse";
 
 type Props = {
   post: Post;
@@ -21,6 +24,7 @@ const postsShow: NextPage<Props> = (props) => {
   const { post } = props;
   const { data: userData } = useUser();
   const isLoggedIn = userData?.isLoggedIn;
+  const [open, setOpen] = useState(false);
 
   const content = useMemo(() => {
     return (
@@ -91,6 +95,29 @@ const postsShow: NextPage<Props> = (props) => {
           ></article>
         </div>
       </div>
+      <div className={styles.post_actions}>
+        <ThumbUpOutlinedIcon className={styles.actions_icon} />
+        <span className={styles.dividing}></span>
+        <ModeCommentOutlinedIcon
+          className={styles.actions_icon}
+          onClick={() => {
+            setOpen(true);
+          }}
+        />
+      </div>
+      {open ? (
+        <div className={styles.comment_drawer}>
+          <div
+            className={styles.mask}
+            onClick={() => {
+              setOpen(false);
+            }}
+          ></div>
+          <div className={styles.content}></div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };

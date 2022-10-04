@@ -1,9 +1,6 @@
 @charset "utf-8";
-
 .typo {
-  font: 400 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei,
-    Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif !important;
-  color: #333;
+  color: #292929;
   background: #fff;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -248,6 +245,8 @@
     padding: 1em 1.5em;
     display: block;
     -webkit-overflow-scrolling: touch;
+    font-size: 14px !important;
+    color: #333 !important;
   }
 
   /* 一致化 horizontal rule */
@@ -318,7 +317,7 @@
   table,
   blockquote {
     margin-bottom: 0.6em;
-    font-size: 15px;
+    font-size: 18px;
   }
 
   h1,
@@ -352,20 +351,20 @@
   }
 
   h2 {
-    font-size: 1.8em;
-  }
-
-  h3 {
     font-size: 1.6em;
   }
 
-  h4 {
+  h3 {
     font-size: 1.4em;
+  }
+
+  h4 {
+    font-size: 1.2em;
   }
 
   h5,
   h6 {
-    font-size: 1.2em;
+    font-size: 1.0em;
   }
 
   /* 在文章中，应该还原 ul 和 ol 的样式 */

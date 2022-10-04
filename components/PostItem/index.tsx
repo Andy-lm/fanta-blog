@@ -23,7 +23,7 @@ const PostItem = (props: { post: Post }) => {
             <h3 className={styles.title}>{post.title}</h3>
           </div>
           <div className={styles.article}>
-            {filterHtml(post.content).slice(0, 100)}
+            {filterHtml(post.content).slice(0, 200)}
           </div>
           <Widgets post={post} />
         </div>

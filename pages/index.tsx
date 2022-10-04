@@ -9,8 +9,9 @@ const Home = () => {
   return (
     <>
       <div className={styles.wrapper}>
+        <div className={styles.header}></div>
         <h1 className={styles.main_title}>
-          <span style={{ color: "#00b96b" }}>南橘</span>，认识有趣的人
+          <span style={{ color: "#00b96b" }}>南橘</span>，分享有趣的知识
         </h1>
         <h4 className={styles.sub_title}>一个小而美的博客网站</h4>
         <Link href="/posts">
@@ -34,7 +35,7 @@ const Home = () => {
             </a>
           </Link>
         )}
-        <img className={styles.home_png} src="/home_bg.png"></img>
+        {/* <img className={styles.home_png} src="/home_bg.png"></img> */}
       </div>
     </>
   );
