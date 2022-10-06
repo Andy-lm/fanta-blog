@@ -1,5 +1,7 @@
 @charset "utf-8";
 .typo {
+  font-family: 300 1em/2 source-serif-pro, Georgia, Cambria, "Times New Roman", Times,
+    serif !important;
   color: #292929;
   background: #fff;
   -webkit-text-size-adjust: 100%;
@@ -83,8 +85,8 @@
   input,
   select,
   textarea {
-    font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei,
-      Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+    font: 300 1em/1.8 source-serif-pro, Georgia, Cambria, "Times New Roman",
+      Times, serif !important;
   }
 
   button::-moz-focus-inner,
@@ -326,8 +328,8 @@
   h4,
   h5,
   h6 {
-    font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei,
-      Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times,
+      serif;
     font-weight: 700;
     color: #000;
     line-height: 1.35;
@@ -364,7 +366,7 @@
 
   h5,
   h6 {
-    font-size: 1.0em;
+    font-size: 1em;
   }
 
   /* 在文章中，应该还原 ul 和 ol 的样式 */

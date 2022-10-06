@@ -17,6 +17,7 @@ const Widgets = (props: Props) => {
   const router = useRouter();
   const [agreed, setAgreed] = useState(props.post.isAgree ? true : false);
   const [agreeCount, setAgreeCount] = useState(props.post.agreeCount);
+  const [count, setCount] = useState(0);
   const { data: userData } = useUser();
   const user = userData?.user;
   const isLoggedIn = userData?.isLoggedIn;

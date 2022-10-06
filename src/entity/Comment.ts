@@ -12,7 +12,19 @@ import { Post } from "./Post";
 @Entity("comments")
 export class Comment {
   @PrimaryGeneratedColumn("increment")
-  id: string;
+  id: number;
+  @Column("int")
+  userId: number;
+  @Column("int")
+  postId: number;
+  @Column("int")
+  replayId: number;
+  @Column("int")
+  parentId: number;
+  @Column("int")
+  isDelete: number;
+  @Column("int")
+  commentLikeCount: number;
   @Column("text")
   content: string;
   @CreateDateColumn()
