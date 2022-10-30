@@ -34,7 +34,7 @@
     "marked": "^1.1.0",
     "md5": "^2.3.0",
     "moment": "^2.29.4",
-    "next": "9.4.1",
+    "next": "^10.2.3",
     "next-iron-session": "^4.2.0",
     "next-remove-imports": "^1.0.6",
     "pg": "^8.7.3",

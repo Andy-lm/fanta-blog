@@ -9,8 +9,6 @@ exports.Agree = void 0;
 
 var _initializerDefineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/initializerDefineProperty"));
 
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -23,7 +21,7 @@ var _typeorm = require("typeorm");
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6;
 
-var Agree = (_dec = (0, _typeorm.Entity)("agrees"), _dec2 = (0, _typeorm.PrimaryGeneratedColumn)("increment"), _dec3 = (0, _typeorm.Column)("int"), _dec4 = (0, _typeorm.Column)("int"), _dec5 = (0, _typeorm.Column)("int"), _dec6 = (0, _typeorm.CreateDateColumn)(), _dec7 = (0, _typeorm.Column)("text"), _dec(_class = (_class2 = /*#__PURE__*/(0, _createClass2["default"])(function Agree() {
+var Agree = (_dec = (0, _typeorm.Entity)("agrees"), _dec2 = (0, _typeorm.PrimaryGeneratedColumn)("increment"), _dec3 = (0, _typeorm.Column)("int"), _dec4 = (0, _typeorm.Column)("int"), _dec5 = (0, _typeorm.Column)("int"), _dec6 = (0, _typeorm.CreateDateColumn)(), _dec7 = (0, _typeorm.Column)("text"), _dec(_class = (_class2 = function Agree() {
   (0, _classCallCheck2["default"])(this, Agree);
   (0, _initializerDefineProperty2["default"])(this, "id", _descriptor, this);
   (0, _initializerDefineProperty2["default"])(this, "userId", _descriptor2, this);
@@ -31,7 +29,7 @@ var Agree = (_dec = (0, _typeorm.Entity)("agrees"), _dec2 = (0, _typeorm.Primary
   (0, _initializerDefineProperty2["default"])(this, "agreeStatus", _descriptor4, this);
   (0, _initializerDefineProperty2["default"])(this, "createdAt", _descriptor5, this);
   (0, _initializerDefineProperty2["default"])(this, "userIdToPostId", _descriptor6, this);
-}), (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "id", [_dec2], {
+}, (_descriptor = (0, _applyDecoratedDescriptor2["default"])(_class2.prototype, "id", [_dec2], {
   configurable: true,
   enumerable: true,
   writable: true,
