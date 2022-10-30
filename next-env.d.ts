@@ -1,17 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+/// <reference types="next/image-types/global" />
 
-
-declare module "*.png" {
-  const value: string;
-  export default value;
-}
-
-
-type FormFields = {
-  label: string;
-  type: "text" | "password" | "textarea";
-  value: string | number;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  errors: string[];
-};
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.

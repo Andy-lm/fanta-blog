@@ -55,7 +55,7 @@ export default function App(props) {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [userData]);
+  }, [userData,router]);
 
   return (
     <>

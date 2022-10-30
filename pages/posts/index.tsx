@@ -39,7 +39,7 @@ const PostsIndex: NextPage<Props> = (props) => {
           <br />
           <hr />
           <footer>
-            <div>{pager}</div>
+            {/* <div>{pager}</div> */}
           </footer>
         </div>
       </div>

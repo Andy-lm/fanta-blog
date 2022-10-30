@@ -1,5 +1,7 @@
 import moment from "moment";
+import 'moment/locale/zh-cn'
 moment.locale("zh-cn");
+
 /**
  * @param data ISO 8601格式时间
  * @return 相对时间，如1分钟前，1天前

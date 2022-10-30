@@ -61,8 +61,8 @@ var User = (_dec = (0, _typeorm.Entity)("users"), _dec2 = (0, _typeorm.PrimaryGe
 
   (0, _createClass2["default"])(User, [{
     key: "validate",
-    // 检测参数是否存在问题
-    value: function () {
+    value: // 检测参数是否存在问题
+    function () {
       var _validate = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(connection) {
         var found;
         return _regenerator["default"].wrap(function _callee$(_context) {
