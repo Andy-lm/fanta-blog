@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch,useStore } from "react-redux";
 import {
   decrement,
   increment,
@@ -10,10 +10,11 @@ import {
 import styles from "./Counter.module.scss";
 
 export default function Counter() {
+  const store = useStore()
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState("2");
-
+  console.log(store);
   return (
     <div>
       <div className={styles.row}>

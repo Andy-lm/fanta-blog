@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { NextPage, GetServerSideProps } from "next";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { Post } from "src/entity/Post";
@@ -13,7 +13,8 @@ import { useRouter } from "next/router";
 import Axios, { AxiosResponse } from "axios";
 import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
 import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
-import Collapse from "@material-ui/core/Collapse";
+import CommentDrawer from "components/CommentDrawer";
+import PostComments from "components/Comments";
 
 type Props = {
   post: Post;
@@ -105,19 +106,14 @@ const postsShow: NextPage<Props> = (props) => {
           }}
         />
       </div>
-      {open ? (
-        <div className={styles.comment_drawer}>
-          <div
-            className={styles.mask}
-            onClick={() => {
-              setOpen(false);
-            }}
-          ></div>
-          <div className={styles.content}></div>
-        </div>
-      ) : (
-        ""
-      )}
+      <CommentDrawer
+        isOpen={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <PostComments postId={post.id}></PostComments>
+      </CommentDrawer>
     </>
   );
 };

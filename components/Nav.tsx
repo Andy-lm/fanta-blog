@@ -1,15 +1,31 @@
 import Link from "next/link";
 import styles from "./Nav.module.scss";
-import { ReactChild, useCallback, useEffect, useState } from "react";
+import { ReactChild, useEffect, useState } from "react";
 import FormatIndentIncreaseIcon from "@material-ui/icons/FormatIndentIncrease";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import Drawer from "@material-ui/core/Drawer";
 import Menu from "./Menu";
 import Logo from "./Logo";
 
 const navLeftItems = [
   <Link href="/posts">
-    <a>推荐</a>
+    <a>
+      <span
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <HomeOutlinedIcon
+          style={{
+            fontSize: 22,
+            fontWeight:300
+          }}
+        />
+        <span className={styles.add_tips}>推荐</span>
+      </span>
+    </a>
   </Link>,
   <Link href="/posts/new">
     <a>
@@ -19,10 +35,9 @@ const navLeftItems = [
           alignItems: "center",
         }}
       >
-        <AddCircleIcon
+        <CreateOutlinedIcon
           style={{
             fontSize: 22,
-            color: "#00b96b",
           }}
         />
         <span className={styles.add_tips}>创作</span>

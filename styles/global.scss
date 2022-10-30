@@ -2,8 +2,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times,
-    serif;
+  font-family: PingFang SC, HarmonyOS_Regular, Helvetica Neue, Microsoft YaHei,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 *::after,

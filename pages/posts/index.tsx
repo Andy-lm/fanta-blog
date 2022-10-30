@@ -11,6 +11,7 @@ import Users from "components/Users";
 import { EntityManager } from "typeorm";
 import { Agree } from "src/entity/Agree";
 import { AgreeCount } from "src/entity/AgreeCount";
+import React from "react";
 
 type Props = {
   posts: Post[];
@@ -78,7 +79,6 @@ const getPosts = async (
   return await manager.findAndCount(Post, {
     relations: {
       author: true,
-      comments: true,
     },
     skip: (currentPage - 1) * pageSize,
     take: pageSize,

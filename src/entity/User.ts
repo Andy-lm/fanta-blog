@@ -1,5 +1,4 @@
 import { Post } from "./Post";
-import { Comment } from "./Comment";
 import {
   Column,
   CreateDateColumn,
@@ -27,8 +26,6 @@ export class User {
   updatedAt: Date;
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
-  @OneToMany(() => Comment, (comment) => comment.user)
-  comments: Comment[];
   password: string;
   passwordConfirmation: string;
   errors = {

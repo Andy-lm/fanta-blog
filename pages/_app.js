@@ -49,6 +49,7 @@ export default function App(props) {
       window.location.href = "/sign_in";
     }
   };
+
   useEffect(() => {
     router.events.on("routeChangeStart", handleRouteChange);
     return () => {

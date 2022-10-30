@@ -69,7 +69,7 @@ const Widgets = (props: Props) => {
           </span>
         </span>
       </span>
-      <span className={styles.action_wrapper}>
+      {/* <span className={styles.action_wrapper}>
         <span>
           <ModeCommentOutlinedIcon
             className={styles.action_icon}
@@ -81,7 +81,7 @@ const Widgets = (props: Props) => {
             {post.comments.length ? post.comments.length : "评论"}
           </span>
         </span>
-      </span>
+      </span> */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 @charset "utf-8";
 .typo {
-  font-family: 300 1em/2 source-serif-pro, Georgia, Cambria, "Times New Roman", Times,
-    serif !important;
+  font-family: 300 1em/2 PingFang SC, HarmonyOS_Regular, Helvetica Neue,
+    Microsoft YaHei, sans-serif !important;
   color: #292929;
   background: #fff;
   -webkit-text-size-adjust: 100%;
@@ -85,8 +85,8 @@
   input,
   select,
   textarea {
-    font: 300 1em/1.8 source-serif-pro, Georgia, Cambria, "Times New Roman",
-      Times, serif !important;
+    font: 300 1em/1.8 PingFang SC, HarmonyOS_Regular, Helvetica Neue,
+      Microsoft YaHei, sans-serif !important;
   }
 
   button::-moz-focus-inner,
@@ -319,7 +319,7 @@
   table,
   blockquote {
     margin-bottom: 0.6em;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   h1,
@@ -328,8 +328,8 @@
   h4,
   h5,
   h6 {
-    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times,
-      serif;
+    font-family: PingFang SC, HarmonyOS_Regular, Helvetica Neue, Microsoft YaHei,
+      sans-serif;
     font-weight: 700;
     color: #000;
     line-height: 1.35;

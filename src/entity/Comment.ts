@@ -6,8 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { User } from "./User";
-import { Post } from "./Post";
 
 @Entity("comments")
 export class Comment {
@@ -15,10 +13,16 @@ export class Comment {
   id: number;
   @Column("int")
   userId: number;
+  // 发送评论的用户名
+  @Column("varchar")
+  commentUsername: string;
   @Column("int")
   postId: number;
   @Column("int")
   replayId: number;
+  // 评论所针对的用户名
+  @Column("varchar")
+  replayUsername: string;
   @Column("int")
   parentId: number;
   @Column("int")
@@ -31,8 +35,5 @@ export class Comment {
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-  @ManyToOne(() => User, (user) => user.comments)
-  user: User;
-  @ManyToOne(() => Post, (post) => post.comments)
-  post: Post;
+  children?: Comment[];
 }
