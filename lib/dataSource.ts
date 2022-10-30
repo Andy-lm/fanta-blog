@@ -7,8 +7,6 @@ import { DataSource } from "typeorm";
 import { Agree } from "src/entity/Agree";
 import { AgreeCount } from "src/entity/AgreeCount";
 
-const NODE_ENV = process.env.NODE_ENV;
-console.log(NODE_ENV, "======NODE_ENV");
 // 注意：DataSource的参数也可以放在ormconfig.json文件里作为全局配置
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -16,7 +14,7 @@ export const AppDataSource = new DataSource({
   在本地连接postgresql时通过localhost，如果是docker容器中需要使用容器的IPA地址
   可通过docker inspect <容器名> | grep IPAddress来获取
   */
-  host: NODE_ENV === "development" ? "localhost" : "172.17.0.2",
+  host: process.env.DATA_SOURCE_HOST,
   port: 5432,
   username: "blog",
   password: "123456",
