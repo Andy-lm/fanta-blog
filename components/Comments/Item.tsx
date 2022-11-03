@@ -8,11 +8,26 @@ import ModeCommentOutlinedIcon from "@material-ui/icons/ModeCommentOutlined";
 import { useEffect, useState } from "react";
 import { Comment } from "src/entity/Comment";
 
-const Item = (props: { comment: Comment; parentId: number }) => {
-  const { comment, parentId } = props;
+const Item = (props: {
+  comment: Comment;
+  parentId: number;
+  isChild?: boolean;
+  updateReplayList?: (newReplayList: Comment[]) => void;
+  updateCurrentSubmitComment?: (currentSubmit: Comment | {}) => void;
+}) => {
+  const {
+    comment,
+    parentId,
+    isChild,
+    updateReplayList: _updateReplayList,
+    updateCurrentSubmitComment: _updateCurrentSubmitComment,
+  } = props;
   const [isReplayOpen, setIsReplayOpen] = useState(false);
   const [replayContent, setReplayContent] = useState("");
   const [replayList, setReplayList] = useState([]);
+  const [currentSubmitComment, setCurrentSubmitComment] = useState<
+    Comment | {}
+  >({});
 
   useEffect(() => {
     if (comment.children) {
@@ -20,15 +35,37 @@ const Item = (props: { comment: Comment; parentId: number }) => {
     }
   }, []);
 
+  /**
+   * 该方法用于子评论内针对评论的内容更新
+   * @param newReplayList
+   */
+  const updateReplayList = (newReplayList: Comment[]) => {
+    setReplayList([...newReplayList]);
+  };
+
+  /**
+   * 该方法用于子评论内针对评论的内容更新
+   * @param currentSubmit
+   */
+  const updateCurrentSubmitComment = (currentSubmit: Comment | {}) => {
+    setCurrentSubmitComment({ ...currentSubmit });
+  };
+
   const getReplayComment = () => {
     Axios.get(
-      `/api/v1/comment/getReplayComment?postId=${comment.postId}&parentId=${parentId}`
+      `/api/v1/comment/getReplayComment?postId=${comment.postId}&parentId=${
+        parentId === 0 && comment.parentId === 0 ? comment.id : parentId
+      }`
     ).then(
       (response: AxiosResponse) => {
         if (response.status === 200) {
           const { data: replayCommentList } = response.data;
-          setReplayList([...replayCommentList]);
           setIsReplayOpen(false);
+          if (isChild) {
+            _updateReplayList([...replayCommentList]);
+          } else {
+            setReplayList([...replayCommentList]);
+          }
         }
       },
       (error) => {
@@ -36,6 +73,21 @@ const Item = (props: { comment: Comment; parentId: number }) => {
       }
     );
   };
+
+  useEffect(() => {
+    if ("id" in currentSubmitComment) {
+      const commentObj: HTMLElement = document.getElementById(
+        `${currentSubmitComment.id}`
+      );
+      if (commentObj) {
+        commentObj.scrollIntoView({
+          block: "center",
+          inline: "nearest",
+        });
+        commentObj.className = "item_current";
+      }
+    }
+  }, [replayList]);
 
   const submitReplayComment = () => {
     Axios.post("/api/v1/comment/addComment", {
@@ -46,15 +98,27 @@ const Item = (props: { comment: Comment; parentId: number }) => {
         parentId === 0 && comment.parentId === 0 ? comment.id : parentId,
       replayUsername: comment.commentUsername,
     }).then(
-      async (data) => {
-        console.log(data, "-----");
+      async (response: AxiosResponse) => {
+        const { data } = response;
+        const { data: curSubmitComment } = data;
+        if (isChild) {
+          _updateCurrentSubmitComment({ ...curSubmitComment });
+        } else {
+          setCurrentSubmitComment({ ...curSubmitComment });
+        }
         setReplayContent("");
         getReplayComment();
       },
       (error) => {
         const response: AxiosResponse = error.response;
+        // 如果失败需要重置SubmitComment
+        if (isChild) {
+          _updateCurrentSubmitComment({});
+        } else {
+          setCurrentSubmitComment({});
+        }
         if (response.status === 400) {
-          console.log("response.data");
+          console.error("response.data====");
           console.log(response.data);
         } else if (response.status === 401) {
           window.alert("请先登录！");
@@ -71,45 +135,47 @@ const Item = (props: { comment: Comment; parentId: number }) => {
   return (
     <div className={styles.item_wrapper}>
       <div className={styles.item}>
-        <div className={styles.item_username}>
-          {comment.commentUsername}
-          {comment.parentId !== 0 && comment.parentId !== comment.replayId ? (
-            <span>
-              <div className={styles.right_triangle}></div>
-              <span>{comment.replayUsername}</span>
-            </span>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className={styles.item_date}>
-          {getRelativeTime(comment.updatedAt.toString())}
-        </div>
-        <div className={styles.item_content}>{comment.content}</div>
-        <div className={styles.item_actions}>
-          <div className={styles.agree_and_reply}>
-            <span>
-              <ThumbUpOutlinedIcon className={styles.comment_agree} />
-            </span>
-            <span>
-              <ModeCommentOutlinedIcon className={styles.comment_replays} />
-            </span>
+        <div id={comment.id.toString()}>
+          <div className={styles.item_username}>
+            {comment.commentUsername}
+            {comment.parentId !== 0 && comment.parentId !== comment.replayId ? (
+              <span>
+                <div className={styles.right_triangle}></div>
+                <span>{comment.replayUsername}</span>
+              </span>
+            ) : (
+              ""
+            )}
           </div>
-          <div className={styles.comment_relay}>
-            <Button
-              color="primary"
-              variant="text"
-              size="small"
-              onClick={() => {
-                setIsReplayOpen((isOpen) => !isOpen);
-              }}
-            >
-              回复
-            </Button>
+          <div className={styles.item_date}>
+            {getRelativeTime(comment.updatedAt.toString())}
+          </div>
+          <div className={styles.item_content}>{comment.content}</div>
+          <div className={styles.item_actions}>
+            <div className={styles.agree_and_reply}>
+              <span>
+                <ThumbUpOutlinedIcon className={styles.comment_agree} />
+              </span>
+              <span
+                className={
+                  isReplayOpen ? styles.comment_relayed : styles.comment_relay
+                }
+                onClick={() => {
+                  setIsReplayOpen((isOpen) => !isOpen);
+                }}
+              >
+                <ModeCommentOutlinedIcon className={styles.comment_replays} />
+                <span className={styles.replay_text}>回复</span>
+              </span>
+            </div>
           </div>
         </div>
         {isReplayOpen || replayList.length ? (
-          <div className={styles.child_comment}>
+          <div
+            className={
+              isChild ? styles.child_comment_isChild : styles.child_comment
+            }
+          >
             {isReplayOpen ? (
               <div className={styles.replay_textarea}>
                 <TextField
@@ -127,7 +193,14 @@ const Item = (props: { comment: Comment; parentId: number }) => {
                   }}
                 />
                 <div className={styles.replay_actions}>
-                  <Button variant="text" size="small">
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => {
+                      setIsReplayOpen(false);
+                      setReplayContent("");
+                    }}
+                  >
                     取消
                   </Button>
                   <Button
@@ -158,6 +231,9 @@ const Item = (props: { comment: Comment; parentId: number }) => {
                         comment={item}
                         key={item.id}
                         parentId={item.parentId}
+                        isChild={true}
+                        updateReplayList={updateReplayList}
+                        updateCurrentSubmitComment={updateCurrentSubmitComment}
                       ></Item>
                     );
                   })

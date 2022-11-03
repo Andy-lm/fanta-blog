@@ -5,15 +5,34 @@ import { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import ClientOnly from "../ClientOnly";
 import Item from "./Item";
+import { Comment } from "src/entity/Comment";
 
 const PostComments = (props: { postId: Number }) => {
   const { postId } = props;
   const [curCommentContent, setCurCommentContent] = useState("");
   const [commentList, setCommentList] = useState([]);
+  const [currentSubmitComment, setCurrentSubmitComment] = useState<
+    Comment | {}
+  >({});
 
   useEffect(() => {
     getComment();
   }, [postId]);
+
+  useEffect(() => {
+    if ("id" in currentSubmitComment) {
+      const commentObj: HTMLElement = document.getElementById(
+        `${currentSubmitComment.id}`
+      );
+      if (commentObj) {
+        commentObj.scrollIntoView({
+          block: "center",
+          inline: "nearest",
+        });
+        commentObj.className = "item_current";
+      }
+    }
+  },[commentList])
 
   const getComment = () => {
     Axios.get(`/api/v1/comment/getComment?postId=${postId}`).then(
@@ -39,13 +58,16 @@ const PostComments = (props: { postId: Number }) => {
       parentId,
       replayUsername: "",
     }).then(
-      async (data) => {
-        console.log(data, "-----");
+      async (response: AxiosResponse) => {
+        const { data } = response;
+        const { data: curSubmitComment } = data;
+        setCurrentSubmitComment({ ...curSubmitComment });
         setCurCommentContent("");
         await getComment();
       },
       (error) => {
         const response: AxiosResponse = error.response;
+        setCurrentSubmitComment({});
         if (response.status === 400) {
           console.log("response.data");
           console.log(response.data);

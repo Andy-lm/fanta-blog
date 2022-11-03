@@ -54,3 +54,16 @@ p {
   color: #000 !important;
   border-bottom: 1px solid #d9d9d9 !important;
 }
+
+.item_current {
+  animation: identifier 1s;
+  border-radius: 10px;
+  @keyframes identifier {
+    from {
+      background-color: #f5f7fa;
+    }
+    to {
+      background-color: #04f2932a;
+    }
+  }
+}
